@@ -14,6 +14,48 @@ body {
     margin-right: 3%;
     
     } 
+
+@media screen and (max-width: 800px) {
+            body {
+            display:block;
+            padding: 5pt;
+            border: 1pt solid rgb(51, 7, 77); 
+            margin-top: 1%;
+            margin-bottom: 1%;
+            margin-left: 1%;
+            margin-right: 1%;
+            } 
+
+            #info{
+                font: 16px Arial;
+                text-align: justify;
+            }
+            
+            #historie {
+                font: 16px Arial;
+                text-align: justify;
+
+            }
+            table {
+                border: 1px solid rgb(82, 82, 82);
+                border-collapse:collapse;
+                padding: 3px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            #kalendarblatt{
+                font: bold 20px Arial;
+                padding: 1px;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            /* .textheader{
+                text-align: center;
+            } */
+
+      }
 #kalendarblatt{
     font: bold 20px Arial;
     padding: 10px;
@@ -67,7 +109,7 @@ td {
     grid-area: kopf;
     font: bold 16px Helvetica;
     text-align: center;
-    font-size: clamp(10px, 1vw, 18px); 
+    font-size: clamp(12px, 1vw, 18px); 
 }
 
 #info{

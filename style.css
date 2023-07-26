@@ -1,0 +1,91 @@
+
+body {
+    display:grid;
+    padding: 5pt;
+    border: 1pt solid rgb(51, 7, 77);
+    grid-template-columns: 1fr auto;
+    grid-template-areas:"kopf kopf"
+                        "kalendarblatt info"
+                        "kalendarblatt historie";
+     
+    margin-top: 3%;
+    margin-bottom: 3%;
+    margin-left: 3%;
+    margin-right: 3%;
+    
+    } 
+#kalendarblatt{
+    font: bold 20px Arial;
+    padding: 10px;
+    grid-area: kalendarblatt;
+    text-align: center;
+    margin: 10pt 5pt 10pt 5pt;
+}
+
+table {
+    border: 1px solid rgb(82, 82, 82);
+    border-collapse:collapse;
+    padding: 3px;
+}
+th {
+    border: 1px solid rgb(82, 82, 82); 
+    border-collapse:collapse;
+    padding: 3px; 
+    min-width: 40pt;
+}
+
+tr{
+    border: 1px solid rgb(82, 82, 82); 
+    border-collapse:collapse;
+    padding: 3px;  
+}
+
+td {
+    border: 1px solid rgb(82, 82, 82); 
+    border-collapse:collapse;
+    padding: 3px; 
+    height: 20pt;
+}
+.wochentage {
+    background: rgba(0, 0, 0, 0.25);
+    font-size:x-small
+    }
+
+.woche {
+    background: rgba(196, 196, 196, 0.178);
+}
+.samstag {
+    color: rgba(30, 158, 243, 0.959) ;
+}
+
+.sonntag {
+    color: rgb(182, 13, 13) ;
+}
+#kopf {
+    background: rgba(31, 5, 126, 0.616);
+    color: rgba(255, 255, 255, 0.959) ;
+    grid-area: kopf;
+    font: bold 16px Helvetica;
+    text-align: center;
+    font-size: clamp(10px, 1vw, 18px); 
+}
+
+#info{
+    font: 16px Arial;
+}
+
+#historie {
+    font: 16px Arial;
+    
+}
+thead {
+    background: rgba(0, 0, 0, 0.178);
+    color: rgba(255, 255, 255, 0.959) ;
+}
+.tag_gray {
+    color: rgba(177, 177, 177, 0.699) ;
+}
+
+.tag_today {
+    border: 3pt solid rgba(255, 145, 0, 0.89);
+}

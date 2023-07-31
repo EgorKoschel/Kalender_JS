@@ -5,12 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
-    <script src="kalender.js"></script>
     </head>
 <body>
     <div id="page">
     <div id="kopf">
-        <h1>Kalendarblatt vom 24 Juli 2023</h1>
+        <h1>Kalendarblatt vom <span id= "dateD"></span>. <span id="monthD"></span> <span id ="year"></span></h1>
     </div>
 
     <div id="kalendarblatt">   
@@ -19,7 +18,7 @@
             <tr>
                 <th colspan="7">
 
-                    <h2>Juli 2023</h2>
+                    <h2><span id="monthKalendarblatt"></span> <span id ="yearKalendarblatt"></span></h2>
                     
                 </th>               
             </tr>         
@@ -110,7 +109,7 @@
         <div id = "text_header">
     <h3>Information</h3>
         </div>
-    <p>Der <span id= "textDateD"></span> ist ein <span id="textWeekdayD"></span> und zwar der <span id ="textWeekInMonth"></span> <span id="textWeekdayD"></span> im Monat <span id="textMonthD"></span> des Jahres <span id ="textYear"></span>. Es handelt sich <span id="holidayYesNoD"></span> um einen gesetzlichen Freitag. </p>
+    <p>Der <span id= "textDate"></span>. <span id="textMonth"></span> ist ein <span id="textWeekday"></span> und zwar der <span id="textNumberWeekday"></span> <span id="textWeekday2"></span> des Monats <span id="textMonth2"></span> im Jahr <span id ="textYear"></span>. Es handelt sich <span id="holidayYesNo"></span> um einen gesetzlichen Feiertag. </p>
     </div>
     <div id = "historie">
     <h3>Historische Ereignisse am 24.07</h3>
@@ -124,7 +123,7 @@
     <li>1699: Von Johann Philipp von Isenburg-Offenbach aufgenommene hugenottische Glaubensflüchtlinge aus Frankreich gründen Neu-Isenburg.</li>
     <li>1701: Der französische Offizier Antoine Laumet errichtet das Fort Detroit. Aus dem Handelsposten entwickelt sich die Stadt Detroit.</li>
     </div>
-
+    <script src="kalender.js"></script>
 </body>
 
 </html>

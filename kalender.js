@@ -7,7 +7,7 @@ function kopfJS()
     let monthD = today.getMonth();
     let year = today.getFullYear();
     const monthNames = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
-    let monthText = (monthNames[monthD])
+    let monthText = (monthNames[monthD]);
     document.getElementById('dateD').textContent = dateD;
     document.getElementById('monthD').textContent = monthText;
     document.getElementById('year').textContent = year;
@@ -19,9 +19,10 @@ function kalendarblattJS()
     let monthD = today.getMonth();
     let year = today.getFullYear();
     const monthNames = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
-    let monthText = (monthNames[monthD])
+    let monthText = (monthNames[monthD]);
     document.getElementById('monthKalendarblatt').textContent = monthText;
     document.getElementById('yearKalendarblatt').textContent = year;
+    
 }
 
 function infotextJS()
@@ -33,7 +34,7 @@ function infotextJS()
     let monthD = today.getMonth();
     let year = today.getFullYear();
     const monthNames = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
-    let monthText = (monthNames[monthD])
+    let monthText = (monthNames[monthD]);
     const weekNames = [ "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag","Samstag"];
     let weekText = (weekNames[weekdayD]);
     document.getElementById('textDate').textContent = dateD;
@@ -58,6 +59,7 @@ function weekInMonthJS()
         firstWeekdayOfMonth.setDate(firstWeekdayOfMonth.getDate()+1);
         }
     const numberWeekday = Math.ceil((currentDay - firstWeekdayOfMonth.getDate() + weekdayD)/7);
+    console.log(currentDay, " ", firstWeekdayOfMonth.getDate(), " ", weekdayD);
     const numberWeekdayName = [ "erste", "zweite", "dritte", "vierte", "fünfte" ];
     let textNumberWeekday = (numberWeekdayName[numberWeekday - 1]);
 

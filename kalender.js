@@ -60,7 +60,6 @@ function weekInMonthJS()
     const numberWeekday = Math.ceil((currentDay - firstWeekdayOfMonth.getDate() + weekdayD)/7);
     const numberWeekdayName = [ "erste", "zweite", "dritte", "vierte", "fünfte" ];
     let textNumberWeekday = (numberWeekdayName[numberWeekday - 1]);
-    console.log(textNumberWeekday);
 
     document.getElementById('textNumberWeekday').textContent = textNumberWeekday;
 

@@ -13,96 +13,23 @@
     </div>
 
     <div id="kalendarblatt">   
-    <table>
-        <thead>                     
-            <tr>
-                <th colspan="7">
-
-                    <h2><span id="monthKalendarblatt"></span> <span id ="yearKalendarblatt"></span></h2>
-                    
-                </th>               
-            </tr>         
-        </thead>
-    <tbody>  
-        <tr class="wochentage">
-            
-                <th class ="tag">Montag</th>
-                <th class ="tag">Dienstag</th>
-                <th class ="tag">Mittwoch</th>
-                <th class ="tag">Donnerstag</th>
-                <th class ="tag">Freitag</th>
-                <th class = "samstag">Samstag</th>
-                <th class = "sonntag">Sonntag</th>
-            
-        </tr>
-        <tr id = "woche1" class = "woche">
-            
-                <td class ="tag_gray">26</td>
-                <td class ="tag_gray">27</td>
-                <td class ="tag_gray">28</td>
-                <td class ="tag_gray">29</td>
-                <td class ="tag_gray">30</td>
-                <td class = "samstag">1</td>
-                <td class = "sonntag">2</td>
-            
-        </tr>
-        <tr class = "woche">
-            
-                <td class ="tag">3</td>
-                <td class ="tag">4</td>
-                <td class ="tag">5</td>
-                <td class ="tag">6</td>
-                <td class ="tag">7</td>
-                <td class = "samstag">8</td>
-                <td class = "sonntag">9</td>
-            
-        </tr>
-        <tr class = "woche">
-            
-                <td class ="tag">10</td>
-                <td class ="tag">11</td>
-                <td class ="tag">12</td>
-                <td class ="tag">13</td>
-                <td class ="tag">14</td>
-                <td class = "samstag">15</td>
-                <td class = "sonntag">16</td>
-            
-        </tr>
-        <tr class = "woche">
-            
-                <td class ="tag">17</td>
-                <td class ="tag">18</td>
-                <td class ="tag">19</td>
-                <td class ="tag">20</td>
-                <td class ="tag">21</td>
-                <td class = "samstag">22</td>
-                <td class = "sonntag">23</td>
-            
-        </tr>
-        <tr class = "woche">
-            
-                <td class ="tag_today">24</td>
-                <td class ="tag">25</td>
-                <td class ="tag">26</td>
-                <td class ="tag">27</td>
-                <td class ="tag">28</td>
-                <td class = "samstag">29</td>
-                <td class = "sonntag">30</td>
-            
-        </tr>
-        <tr class = "woche">
-            
-                <td class ="tag">31</td>
-                <td class ="tag_gray">1</td>
-                <td class ="tag_gray">2</td>
-                <td class ="tag_gray">3</td>
-                <td class ="tag_gray">4</td>
-                <td class ="tag_gray">5</td>
-                <td class ="tag_gray">6</td>
-            
-        </tr>
-    </tbody>
-    </table>
+        <div class="kalender">
+            <div class="header">
+                <button id="prev-btn">Zurück</button> 
+                <h2 id="month-year"></h2>
+                <button id="next-btn">Weiter</button>
+            </div>
+            <div class="weekdays">
+                <div class="weekday">Mo</div>
+                <div class="weekday">Di</div>
+                <div class="weekday">Mi</div>
+                <div class="weekday">Do</div>
+                <div class="weekday">Fr</div>
+                <div class="weekday">Sa</div>
+                <div class="weekday">So</div>
+            </div>
+            <div id="kalender-body"></div>
+        </div>
     </div>
 
     <div id = "info">

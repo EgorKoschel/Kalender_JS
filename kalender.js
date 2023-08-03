@@ -1,8 +1,15 @@
-window.onload = kopfJS(), infotextJS(), weekInMonthJS(),feiertagYesNoJS();
-document.addEventListener("DOMContentLoaded", kalendarblattJS());
+let globalDate = new Date();
+window.onload = kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();
+console.log("globalDate:" + globalDate);
+
+let headButton = document.getElementById("headButton");
+    headButton.addEventListener("click", function () {
+        kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();
+    });
+
 function kopfJS()
 {
-    let today = new Date();
+    let today = globalDate;
     let dateD = today.getDate();
     let monthD = today.getMonth();
     let year = today.getFullYear();
@@ -11,21 +18,12 @@ function kopfJS()
     document.getElementById('dateD').textContent = dateD;
     document.getElementById('monthD').textContent = monthText;
     document.getElementById('year').textContent = year;
+    console.log ("kopfDate " + globalDate);
 }
 
-// function kalendarblattJS()
-// {
-//     let today = new Date();
-//     let monthD = today.getMonth();
-//     let year = today.getFullYear();
-//     const monthNames = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
-//     let monthText = (monthNames[monthD])
-//     document.getElementById('monthKalendarblatt').textContent = monthText;
-//     document.getElementById('yearKalendarblatt').textContent = year;
-// }
 
 function kalendarblattJS() {
-    let today = new Date();
+    let today = globalDate;
     // get ID
     let kalenderBody = document.getElementById("kalender-body");
     let monthYearElement = document.getElementById("month-year");
@@ -36,11 +34,17 @@ function kalendarblattJS() {
         // get the first day of the current month
         const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 
+        console.log("first day of the current month :" + firstDayOfMonth);
+
         // get the last day of the current month
         const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
+        console.log("last day of the current month :" + lastDayOfMonth);
+
         // get the number of days in the current month
         const daysInMonth = lastDayOfMonth.getDate();
+
+        console.log("number of days in the current month :" + daysInMonth);
 
         // get the day of the week of the first day of the current month
         let firstDayOfWeek = firstDayOfMonth.getDay();
@@ -49,23 +53,17 @@ function kalendarblattJS() {
             firstDayOfWeek = 7;
         }
 
-        else
-        {
-            firstDayOfWeek = firstDayOfWeek-1;
-        } 
+        console.log("first weekday month :" + firstDayOfWeek);
 
-        // get the day of the week of the last day of the current month (от 0 до 6, где 0 - воскресенье)
+        // get the day of the week of the last day of the current month
         let lastDayOfWeek = lastDayOfMonth.getDay();
 
         if (lastDayOfWeek == 0) {
             lastDayOfWeek = 7;
         }
-        else
-        {
-            lastDayOfWeek = lastDayOfWeek;
-        }
 
-        console.log(lastDayOfWeek);
+        console.log("last weekday month :" + lastDayOfWeek);
+        console.log("----------------------------------------");
 
         // create the name of the current month
         const monthNames = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
@@ -79,7 +77,7 @@ function kalendarblattJS() {
         kalenderBody.innerHTML = "";
 
         // empty cells for days before the first day of the month
-        for (let i = 0; i < firstDayOfWeek; i++) {
+        for (let i = 1; i < firstDayOfWeek; i++) {
             const emptyCell = createDayCell("");
             kalenderBody.appendChild(emptyCell);
         }
@@ -95,21 +93,33 @@ function kalendarblattJS() {
             const emptyCell = createDayCell("");
             kalenderBody.appendChild(emptyCell);
         }
+        
     }
 
     // create a day cell with a number
     function createDayCell(day) {
         // create a day cell ID
         const dayCell = document.createElement("div");
-
-        // adding the class "day" for style.css
+        
+        let currentMonth = today.getMonth();
+        let currentYear = today.getFullYear();
+        // adding the class "day" in style.css
         dayCell.classList.add("day");
 
+        if (day==globalDate.getDate() && currentMonth==globalDate.getMonth() && currentYear==globalDate.getFullYear()){
+            dayCell.classList.add("today");
+        }
         // set cell content text
         dayCell.textContent = day;
 
         // display a message when you click on the current day
-        dayCell.addEventListener("click", () => alert(`Datum: ${day}`));
+        // dayCell.addEventListener("click", () => alert(`Datum: ${day}.${today.getMonth()+1}.${today.getFullYear()}`));
+        dayCell.addEventListener("click", function () {
+            globalDate = new Date(today.getFullYear(), today.getMonth(), day);
+            console.log ("globalDate: " + globalDate);
+            kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(); renderCalendar();
+        });
+
 
         // returning the created cell element
         return dayCell;
@@ -134,7 +144,7 @@ function kalendarblattJS() {
 function infotextJS()
 
 {
-    let today = new Date();
+    let today = globalDate;
     let dateD = today.getDate();
     let weekdayD = today.getDay();
     let monthD = today.getMonth();
@@ -155,7 +165,7 @@ function infotextJS()
 function weekInMonthJS()
 
 {
-    const today = new Date();
+    const today = globalDate;
     const weekdayD = today.getDay();
     const currentDay = today.getDate();
     const firstWeekdayOfMonth = new Date(today);
@@ -175,7 +185,7 @@ function weekInMonthJS()
 
 function feiertagYesNoJS()
 {
-    let today = new Date();
+    let today = globalDate;
     let dateD = today.getDate();
     let monthD = today.getMonth() + 1;
     let textFeiertagYesNo;

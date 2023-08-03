@@ -119,11 +119,19 @@ td {
 }
 .samstag {
     color: rgba(30, 158, 243, 0.959) ;
+    padding: 10px;
+    border: 1pt solid #ccc;
+    background: rgba(0, 0, 0, 0.25);
+    font-size:small;
 }
 
 .sonntag {
     color: rgb(182, 13, 13) ;
-}
+    padding: 10px;
+    border: 1pt solid #ccc;
+    background: rgba(0, 0, 0, 0.25);
+    font-size:small;
+} 
 #kopf {
     background: rgba(110, 87, 194, 0.897);
     color: rgba(255, 255, 255, 0.959) ;
@@ -138,6 +146,9 @@ td {
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 
+#headButton{
+    cursor: pointer;
+}
 #info{
     font: 16px Arial;
 }
@@ -160,11 +171,12 @@ thead {
 }
 
 .kalender {
-    max-width: 430px;
+    max-width: 420px;
     margin: auto;
-    padding: 3px;
+    padding: 0px;
     font-family: Arial, sans-serif;
-    border-collapse:collapse;
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     
 }
 
@@ -176,13 +188,23 @@ thead {
     color: rgba(255, 255, 255, 0.959) ;
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 1pt;
+    border-radius: 15px 15px 0px 0px;
 }
 
 #kalender-body {
     display: grid;
-    min-width: 430px;
+    min-width: 400px;
     grid-template-columns: repeat(7, 1fr);
     gap: 0px;
+}
+
+#kalender-footer {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.178);
+    color: rgba(255, 255, 255, 0.959) ;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1pt;
+    border-radius: 0px 0px 15px 15px; 
 }
 
 .weekdays {
@@ -197,7 +219,7 @@ thead {
     padding: 10px;
     border: 1pt solid #ccc;
     background: rgba(0, 0, 0, 0.25);
-    font-size:x-small;
+    font-size:small;
 }
 
 .day {
@@ -209,7 +231,74 @@ thead {
     
 }
 
+.day:nth-child(7n+6)
+ {
+    text-align: center;
+    padding: 10px;
+    background: rgba(196, 196, 196, 0.178);
+    border: 1pt solid #ccc;
+    cursor: pointer;
+    color: rgba(30, 158, 243, 0.959) ;
+}
+
+.day:nth-child(7n+7) {
+    color: rgb(182, 13, 13) ;
+    text-align: center;
+    padding: 10px;
+    background: rgba(196, 196, 196, 0.178);
+    border: 1pt solid #ccc;
+    cursor: pointer;
+}
+
 .day:hover {
-    border: 1pt solid rgba(255, 145, 0, 0.89);
+    border: 3pt solid rgba(255, 145, 0, 0.89);
     border-collapse: collapse;
+    padding: 5pt;
+    transition: .1s;
+}
+
+#prev-btn {
+    font: bold 15px Monospace;
+    background-color: #f3f7fe;
+    border: none;
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+    transition: .3s;
+    padding-top: 3pt;
+    padding-bottom: 3pt;
+    padding-left: 6pt;
+    padding-right: 6pt;
+    margin: 20pt;
+  }
+  
+#prev-btn:hover {
+    background-color:  rgba(110, 87, 194, 0.897);
+    box-shadow: 0 0 0 5px #3b83f65f;
+    color: #fff;
+  }
+  
+#next-btn {
+    font: bold 15px Monospace;
+    background-color: #f3f7fe;
+    border: none;
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+    transition: .3s;
+    padding-top: 3pt;
+    padding-bottom: 3pt;
+    padding-left: 6pt;
+    padding-right: 6pt;
+    margin: 20pt;
+  }
+  
+#next-btn:hover {
+    background-color:  rgba(110, 87, 194, 0.897);
+    box-shadow: 0 0 0 5px #3b83f65f;
+    color: #fff;
+  }
+
+.day.today{
+    background-color:  rgb(231, 231, 231);
 }

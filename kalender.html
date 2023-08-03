@@ -9,15 +9,15 @@
 <body>
     <div id="page">
     <div id="kopf">
-        <h1>Kalendarblatt vom <span id= "dateD"></span>. <span id="monthD"></span> <span id ="year"></span></h1>
+        <h1 id = "headButton">Kalendarblatt vom <span id= "dateD"></span>. <span id="monthD"></span> <span id ="year"></span></h1>
     </div>
 
     <div id="kalendarblatt">   
         <div class="kalender">
             <div class="header">
-                <button id="prev-btn">Zurück</button> 
+                <button id="prev-btn"><</button> 
                 <h2 id="month-year"></h2>
-                <button id="next-btn">Weiter</button>
+                <button id="next-btn">></button>
             </div>
             <div class="weekdays">
                 <div class="weekday">Mo</div>
@@ -25,10 +25,11 @@
                 <div class="weekday">Mi</div>
                 <div class="weekday">Do</div>
                 <div class="weekday">Fr</div>
-                <div class="weekday">Sa</div>
-                <div class="weekday">So</div>
+                <div class="samstag">Sa</div>
+                <div class="sonntag">So</div>
             </div>
             <div id="kalender-body"></div>
+            <div id="kalender-footer">Kalender</div>
         </div>
     </div>
 

@@ -277,6 +277,16 @@ thead {
     box-shadow: 0 0 0 5px #3b83f65f;
     color: #fff;
   }
+
+  .grayday {
+    text-align: center;
+    padding: 10px;
+    color: #cececed2;
+    background: rgba(196, 196, 196, 0.178);
+    border: 1pt solid #ccc;
+    cursor:default;
+    
+}
   
 #next-btn {
     font: bold 15px Monospace;
@@ -300,5 +310,24 @@ thead {
   }
 
 .day.today{
+    background-color:  rgb(231, 231, 231);
+}
+
+.feiertag{
+    color: rgba(224, 48, 48, 0.884) ;
+    text-align: center;
+    padding: 10px;
+    background: rgba(196, 196, 196, 0.178);
+    border: 1pt solid #ccc;
+    cursor: pointer;
+}
+
+.feiertag:hover {
+    border: 3pt solid rgba(255, 145, 0, 0.89);
+    border-collapse: collapse;
+    padding: 5pt;
+    transition: .1s;
+}
+.feiertag.today{
     background-color:  rgb(231, 231, 231);
 }

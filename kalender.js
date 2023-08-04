@@ -1,9 +1,21 @@
 let globalDate = new Date();
-window.onload = kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();
+let easterDate;
+let karfreitag;
+let christiHimmelfahrt;
+let pfingstMontag;
+let fronleichnam;
+let neuesYahr = new Date (globalDate.getFullYear(), 0, 1);
+let tagDerArbeit = new Date (globalDate.getFullYear(), 4, 1)
+let tagDerEinheit = new Date (globalDate.getFullYear(), 9, 3);
+let weihnachtstag1 = new Date (globalDate.getFullYear(), 11, 25);
+let weihnachtstag2 = new Date (globalDate.getFullYear(), 11, 26);
+
+window.onload = getFeiertag(), kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();
 console.log("globalDate:" + globalDate);
 
 let headButton = document.getElementById("headButton");
     headButton.addEventListener("click", function () {
+        globalDate = new Date();
         kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();
     });
 
@@ -31,6 +43,9 @@ function kalendarblattJS() {
     let nextBtn = document.getElementById("next-btn");
 
     function renderCalendar() {
+
+        let firstDayNextMonth = 0;
+
         // get the first day of the current month
         const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 
@@ -39,10 +54,17 @@ function kalendarblattJS() {
         // get the last day of the current month
         const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
+        // get the last day of the previous month
+        const lastDayPrevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+
         console.log("last day of the current month :" + lastDayOfMonth);
+        console.log("last day of the previous month :" + lastDayPrevMonth);
 
         // get the number of days in the current month
         const daysInMonth = lastDayOfMonth.getDate();
+
+        // get the number of days in the previous month
+        let daysInPrevMonth = lastDayPrevMonth.getDate();
 
         console.log("number of days in the current month :" + daysInMonth);
 
@@ -76,21 +98,24 @@ function kalendarblattJS() {
         // remove the month before drawing a new
         kalenderBody.innerHTML = "";
 
-        // empty cells for days before the first day of the month
-        for (let i = 1; i < firstDayOfWeek; i++) {
-            const emptyCell = createDayCell("");
+        // gray cells with numbers for days before the first day of the month
+        for (let i = firstDayOfWeek; i > 1; i--) {
+            let day = daysInPrevMonth - i + 2;
+            const emptyCell = createGrayCell(day, "grayday");
             kalenderBody.appendChild(emptyCell);
         }
 
         // cells for days of the month
+        let cellWithNumber;
         for (let day = 1; day <= daysInMonth; day++) {
-            const dayCell = createDayCell(day);
-            kalenderBody.appendChild(dayCell);
+            cellWithNumber =createDayCell(day);
+            kalenderBody.appendChild(cellWithNumber);
         }
     
         // empty cells for days after the last day of the month
         for (let i = lastDayOfWeek; i < 7; i++) {
-            const emptyCell = createDayCell("");
+            firstDayNextMonth = firstDayNextMonth + 1;
+            const emptyCell = createGrayCell(firstDayNextMonth, "grayday");
             kalenderBody.appendChild(emptyCell);
         }
         
@@ -100,13 +125,22 @@ function kalendarblattJS() {
     function createDayCell(day) {
         // create a day cell ID
         const dayCell = document.createElement("div");
-        
         let currentMonth = today.getMonth();
         let currentYear = today.getFullYear();
-        // adding the class "day" in style.css
-        dayCell.classList.add("day");
 
-        if (day==globalDate.getDate() && currentMonth==globalDate.getMonth() && currentYear==globalDate.getFullYear()){
+        // adding the class "day" from style.css
+
+            if (day == neuesYahr.getDate() && today.getMonth() == neuesYahr.getMonth() || day == karfreitag.getDate() && today.getMonth() == karfreitag.getMonth()|| day==osterMontag.getDate() && today.getMonth() == osterMontag.getMonth()|| 
+            day==tagDerArbeit.getDate() && today.getMonth() == tagDerArbeit.getMonth() || day==christiHimmelfahrt.getDate() && today.getMonth() == christiHimmelfahrt.getMonth()|| day==pfingstMontag.getDate() && today.getMonth() == pfingstMontag.getMonth()||
+            day==fronleichnam.getDate() && today.getMonth() == fronleichnam.getMonth() || day==tagDerEinheit.getDate() && today.getMonth() == tagDerEinheit.getMonth()||day==weihnachtstag1.getDate() && today.getMonth() == weihnachtstag1.getMonth()||day==weihnachtstag2.getDate() && today.getMonth() == weihnachtstag2.getMonth()){
+            dayCell.classList.add("feiertag");
+            }
+            else {
+            dayCell.classList.add("day");
+            }
+
+        // adding the class "today" in style.css and show today
+        if (day==globalDate.getDate() && currentMonth==globalDate.getMonth() && currentYear==globalDate.getFullYear() ){
             dayCell.classList.add("today");
         }
         // set cell content text
@@ -118,12 +152,38 @@ function kalendarblattJS() {
             globalDate = new Date(today.getFullYear(), today.getMonth(), day);
             console.log ("globalDate: " + globalDate);
             kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(); renderCalendar();
-        });
+        }
+        
+        );
 
 
         // returning the created cell element
         return dayCell;
     }
+
+        // create a day cell with a gray number previous and next month
+    function createGrayCell(day) {
+            // create a day cell ID
+            const dayCell = document.createElement("div");
+            // adding the class "grayday" in style.css
+            dayCell.classList.add("grayday");
+            // set cell content text
+            dayCell.textContent = day;
+            // returning the created cell element
+            return dayCell;
+    }
+
+    function createFeiertagCell(day) {
+        // create a day cell ID
+        const dayCell = document.createElement("div");
+        // adding the class "grayday" in style.css
+        dayCell.classList.add("feiertag");
+        // set cell content text
+        dayCell.textContent = day;
+        // returning the created cell element
+        return dayCell;
+    }
+
     // create calendar on page load
     renderCalendar();
 
@@ -131,13 +191,15 @@ function kalendarblattJS() {
     prevBtn.addEventListener("click", function () {
         // when you click the "Zurück" button, we decrease the month of the current date by 1 and redraw the calendar
         today.setMonth(today.getMonth() - 1);
-        renderCalendar();
+        kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), getFeiertag(), renderCalendar();
+        console.log ("globalDate fater click on previous or next month ", globalDate);
     });
 
     nextBtn.addEventListener("click", function () {
         // when you click the "Weiter" button, increase the month of the current date by 1 and redraw the calendar
         today.setMonth(today.getMonth() + 1);
-        renderCalendar();
+        kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), getFeiertag(), renderCalendar();
+        console.log ("globalDate fater click on previous or next month ", globalDate);
     });
 }
 
@@ -174,11 +236,19 @@ function weekInMonthJS()
     while (firstWeekdayOfMonth.getDay() !== weekdayD) {
         firstWeekdayOfMonth.setDate(firstWeekdayOfMonth.getDate()+1);
         }
-    const numberWeekday = Math.ceil((currentDay - firstWeekdayOfMonth.getDate() + weekdayD)/7);
-    const numberWeekdayName = [ "erste", "zweite", "dritte", "vierte", "fünfte" ];
-    let textNumberWeekday = (numberWeekdayName[numberWeekday - 1]);
+        if (weekdayD == 0){
+            const numberWeekday = Math.ceil((currentDay - firstWeekdayOfMonth.getDate() + 7)/7);
+            const numberWeekdayName = [ "erste", "zweite", "dritte", "vierte", "fünfte" ];
+            let textNumberWeekday = (numberWeekdayName[numberWeekday - 1]);
+            document.getElementById('textNumberWeekday').textContent = textNumberWeekday;
+            }
+        else{
+            const numberWeekday = Math.ceil((currentDay - firstWeekdayOfMonth.getDate() + weekdayD)/7);
+            const numberWeekdayName = [ "erste", "zweite", "dritte", "vierte", "fünfte" ];
+            let textNumberWeekday = (numberWeekdayName[numberWeekday - 1]);
+            document.getElementById('textNumberWeekday').textContent = textNumberWeekday;
+        }
 
-    document.getElementById('textNumberWeekday').textContent = textNumberWeekday;
 
 
 }
@@ -187,10 +257,10 @@ function feiertagYesNoJS()
 {
     let today = globalDate;
     let dateD = today.getDate();
-    let monthD = today.getMonth() + 1;
+    let monthD = today.getMonth();
     let textFeiertagYesNo;
-        if (dateD == 1 && monthD == 1 || dateD == 7 && monthD == 4 || dateD == 10 && monthD == 4 || dateD == 1 && monthD == 5 || dateD == 18 && monthD == 5 
-            || dateD == 29 && monthD == 5 || dateD == 8 && monthD == 6 || dateD == 3 && monthD == 10 || dateD == 25 && monthD == 12 || dateD == 26 && monthD == 12) {
+        if (dateD == neuesYahr.getDate() && monthD == neuesYahr.getMonth() || dateD == karfreitag.getDate() && monthD == karfreitag.getMonth() || dateD == osterMontag.getDate() && monthD == osterMontag.getMonth() || dateD == tagDerArbeit.setDate() && monthD == tagDerArbeit.getMonth() || dateD == christiHimmelfahrt.getDate() && monthD == christiHimmelfahrt.getMonth() 
+            || dateD == pfingstMontag.getDate() && monthD == pfingstMontag.getMonth() || dateD == fronleichnam.getDate() && monthD == fronleichnam.getMonth() || dateD == tagDerEinheit.getDate() && monthD == tagDerEinheit.getMonth() || dateD == weihnachtstag1.getDate() && monthD == weihnachtstag1.getMonth() || dateD == weihnachtstag2.getDate() && monthD == weihnachtstag2.getMonth()) {
             textFeiertagYesNo = "";
         }
 
@@ -200,4 +270,47 @@ function feiertagYesNoJS()
         }
 
     document.getElementById('holidayYesNo').textContent = textFeiertagYesNo;
+}
+
+function getFeiertag(){
+
+    const year = globalDate.getFullYear();
+
+    function calculateEasterDate(year) {
+        const a = year % 19, b = year % 4, c = year % 7,
+        d = (19 * a + 24) % 30, e = (2 * b + 4 * c + 6 * d + 5) % 7;
+        const day = 22 + d + e;
+        return new Date(year, 2, day + (d === 29 || (d === 28 && e === 6) ? -7 : 0));
+        }
+        easterDate = calculateEasterDate(year);
+        console.log(`--------------Feiertagen in ${year}---------`);
+        console.log(`Easter in ${year} ${easterDate.toDateString()}`);
+
+        karfreitag = new Date (easterDate);
+        karfreitag.setDate(karfreitag.getDate() - 2);
+        console.log(`Karfreitag in ${year} ${karfreitag.toDateString()}`);
+
+        osterMontag = new Date (easterDate);
+        osterMontag.setDate(osterMontag.getDate() + 1);
+        console.log(`Ostermontag in ${year} ${osterMontag.toDateString()}`);
+
+        christiHimmelfahrt = new Date (easterDate);
+        christiHimmelfahrt.setDate(christiHimmelfahrt.getDate() + 39);
+        console.log(`Christi Himmelfahrt in ${year} ${christiHimmelfahrt.toDateString()}`);
+
+        pfingstMontag = new Date (easterDate);
+        pfingstMontag.setDate(pfingstMontag.getDate() + 50);
+        console.log(`Pfingstmontag in ${year} ${pfingstMontag.toDateString()}`);
+
+        fronleichnam = new Date (pfingstMontag);
+        fronleichnam.setDate(fronleichnam.getDate() + 10);
+        console.log(`Fronleichnam in ${year} ${fronleichnam.toDateString()}`);
+
+        console.log(`Neues Yahr in ${year} ${neuesYahr.toDateString()}`);
+
+        console.log(`Tag der Einheit in ${year} ${tagDerEinheit.toDateString()}`);
+
+        console.log(`Weinachtag 1 in ${year} ${weihnachtstag1.toDateString()}`);
+
+        console.log(`Weinachtag 2 in ${year} ${weihnachtstag2.toDateString()}`);
 }

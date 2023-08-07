@@ -128,7 +128,7 @@ function kalendarblattJS() {
         let currentMonth = today.getMonth();
         let currentYear = today.getFullYear();
 
-        // adding the class "day" from style.css
+        // adding style
 
             if (day == neuesYahr.getDate() && today.getMonth() == neuesYahr.getMonth() || day == karfreitag.getDate() && today.getMonth() == karfreitag.getMonth()|| day==osterMontag.getDate() && today.getMonth() == osterMontag.getMonth()|| 
             day==tagDerArbeit.getDate() && today.getMonth() == tagDerArbeit.getMonth() || day==christiHimmelfahrt.getDate() && today.getMonth() == christiHimmelfahrt.getMonth()|| day==pfingstMontag.getDate() && today.getMonth() == pfingstMontag.getMonth()||
@@ -147,7 +147,6 @@ function kalendarblattJS() {
         dayCell.textContent = day;
 
         // display a message when you click on the current day
-        // dayCell.addEventListener("click", () => alert(`Datum: ${day}.${today.getMonth()+1}.${today.getFullYear()}`));
         dayCell.addEventListener("click", function () {
             globalDate = new Date(today.getFullYear(), today.getMonth(), day);
             console.log ("globalDate: " + globalDate);
@@ -262,26 +261,38 @@ function feiertagYesNoJS()
         if (dateD == neuesYahr.getDate() && monthD == neuesYahr.getMonth() || dateD == karfreitag.getDate() && monthD == karfreitag.getMonth() || dateD == osterMontag.getDate() && monthD == osterMontag.getMonth() || dateD == tagDerArbeit.setDate() && monthD == tagDerArbeit.getMonth() || dateD == christiHimmelfahrt.getDate() && monthD == christiHimmelfahrt.getMonth() 
             || dateD == pfingstMontag.getDate() && monthD == pfingstMontag.getMonth() || dateD == fronleichnam.getDate() && monthD == fronleichnam.getMonth() || dateD == tagDerEinheit.getDate() && monthD == tagDerEinheit.getMonth() || dateD == weihnachtstag1.getDate() && monthD == weihnachtstag1.getMonth() || dateD == weihnachtstag2.getDate() && monthD == weihnachtstag2.getMonth()) {
             textFeiertagYesNo = "";
-            let feiertagArray = [ neuesYahr.getDate()+neuesYahr.getMonth(), karfreitag.getDate()+karfreitag.getMonth(), osterMontag.getDate()+osterMontag.getMonth()];
-            let feiertagNameArray = ["Neues Yahr", "Karfreitag", "Ostermontag"];
+            heuteIstName = ":";
         }
 
         else 
         {
             textFeiertagYesNo = "nicht";
+            heuteIstName = ".";
         }
 
-        // if (dateD == neuesYahr.getDate() && monthD == neuesYahr.getMonth()){
-        //     feiertagName = "Heute ist Neues Yahr.";
-        // }
+        let feiertagNameArray = [{date: neuesYahr.getDate(), month: neuesYahr.getMonth(), name: "Neujahr."}, 
+                                {date: karfreitag.getDate(), month: karfreitag.getMonth(), name: "Karfreitag."}, 
+                                {date: osterMontag.getDate(), month: osterMontag.getMonth(), name: "Ostermontag."},
+                                {date: tagDerArbeit.getDate(), month: tagDerArbeit.getMonth(), name: "Tag der Arbeit."},
+                                {date: christiHimmelfahrt.getDate(), month: christiHimmelfahrt.getMonth(), name: "Christi Himmelfahrt."},
+                                {date: pfingstMontag.getDate(), month: pfingstMontag.getMonth(), name: "Pfingstmontag."},
+                                {date: fronleichnam.getDate(), month: fronleichnam.getMonth(), name: "Fronleichnam."},
+                                {date: tagDerEinheit.getDate(), month: tagDerEinheit.getMonth(), name: "Tag der Deutschen Einheit."},
+                                {date: weihnachtstag1.getDate(), month: weihnachtstag1.getMonth(), name: "1. Weihnachtsfeiertag."},
+                                {date: weihnachtstag2.getDate(), month: weihnachtstag2.getMonth(), name: "2. Weihnachtsfeiertag."},                            
+                            ];
 
-        // else{
-        //     feiertagName = "";
-        // }
-        console.log(feiertagName);
+                function getNameByDate(date, month) {
+                    let feiertagName = feiertagNameArray.find(item => item.date === date && item.month === month);
+                    return feiertagName ? feiertagName.name : '';
+                }
 
-    document.getElementById('holidayYesNo').textContent = textFeiertagYesNo;
-    document.getElementById('feiertagName').textContent = feiertagName;
+                let numberToName = getNameByDate(today.getDate(), today.getMonth());
+                console.log(numberToName);
+
+        document.getElementById('holidayYesNo').textContent = textFeiertagYesNo;
+        document.getElementById('heuteIstName').textContent = heuteIstName;
+        document.getElementById('feiertagName').textContent = numberToName;
 
 }
 

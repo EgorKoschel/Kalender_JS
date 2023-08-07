@@ -262,6 +262,8 @@ function feiertagYesNoJS()
         if (dateD == neuesYahr.getDate() && monthD == neuesYahr.getMonth() || dateD == karfreitag.getDate() && monthD == karfreitag.getMonth() || dateD == osterMontag.getDate() && monthD == osterMontag.getMonth() || dateD == tagDerArbeit.setDate() && monthD == tagDerArbeit.getMonth() || dateD == christiHimmelfahrt.getDate() && monthD == christiHimmelfahrt.getMonth() 
             || dateD == pfingstMontag.getDate() && monthD == pfingstMontag.getMonth() || dateD == fronleichnam.getDate() && monthD == fronleichnam.getMonth() || dateD == tagDerEinheit.getDate() && monthD == tagDerEinheit.getMonth() || dateD == weihnachtstag1.getDate() && monthD == weihnachtstag1.getMonth() || dateD == weihnachtstag2.getDate() && monthD == weihnachtstag2.getMonth()) {
             textFeiertagYesNo = "";
+            let feiertagArray = [ neuesYahr.getDate()+neuesYahr.getMonth(), karfreitag.getDate()+karfreitag.getMonth(), osterMontag.getDate()+osterMontag.getMonth()];
+            let feiertagNameArray = ["Neues Yahr", "Karfreitag", "Ostermontag"];
         }
 
         else 
@@ -269,7 +271,18 @@ function feiertagYesNoJS()
             textFeiertagYesNo = "nicht";
         }
 
+        // if (dateD == neuesYahr.getDate() && monthD == neuesYahr.getMonth()){
+        //     feiertagName = "Heute ist Neues Yahr.";
+        // }
+
+        // else{
+        //     feiertagName = "";
+        // }
+        console.log(feiertagName);
+
     document.getElementById('holidayYesNo').textContent = textFeiertagYesNo;
+    document.getElementById('feiertagName').textContent = feiertagName;
+
 }
 
 function getFeiertag(){

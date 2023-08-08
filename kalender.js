@@ -79,6 +79,7 @@ function kalendarblattJS() {
         // get the day of the week of the first day of the current month
         let firstDayOfWeek = firstDayOfMonth.getDay();
 
+         //change sunday number from 0 to 7
         if (firstDayOfWeek == 0) {
             firstDayOfWeek = 7;
         }
@@ -258,6 +259,7 @@ function weekInMonthJS()
             let textNumberWeekday = (numberWeekdayName[numberWeekday - 1]);
             document.getElementById('textNumberWeekday').textContent = textNumberWeekday;
             }
+        //count number of the current day of week in the month, if current day is any day expcept Sunday
         else{
             const numberWeekday = Math.ceil((currentDay - firstWeekdayOfMonth.getDate() + weekdayD)/7);
             const numberWeekdayName = [ "erste", "zweite", "dritte", "vierte", "fünfte" ];

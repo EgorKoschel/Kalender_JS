@@ -363,7 +363,8 @@ thead {
 }
 
 iframe {
-    border: 0px solid black;
+    border: 1px solid rgb(228, 228, 228);
     width: 100%; 
-    margin-left: 0pt;
+    border-radius: 10px 10px 10px 10px;
   }
+

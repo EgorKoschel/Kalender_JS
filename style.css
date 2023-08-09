@@ -7,6 +7,7 @@ body {
 
 #page {
     display:grid;
+    max-width: 1400px;
     padding: 5pt;
     border: 0pt solid rgb(51, 7, 77);
     border-radius: 10px;
@@ -16,8 +17,8 @@ body {
                         "kalendarblatt historie";
     margin-top: 1%;
     margin-bottom: 1%;                
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: auto;
+    margin-right: auto;
     background-color: rgb(255, 255, 255);
     background-clip: border-box;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;               
@@ -98,6 +99,7 @@ body {
     grid-area: kalendarblatt;
     text-align: center;
     margin: 10pt 5pt 10pt 5pt;
+
 }
 
 table {
@@ -366,5 +368,6 @@ iframe {
     border: 1px solid rgb(228, 228, 228);
     width: 100%; 
     border-radius: 10px 10px 10px 10px;
+    height: 1400px;
   }
 

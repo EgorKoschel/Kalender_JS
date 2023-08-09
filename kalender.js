@@ -237,6 +237,9 @@ function infotextJS()
     document.getElementById('textYear').textContent = year;
     document.getElementById('historieDate').textContent = dateD;
     document.getElementById('historieMonth').textContent = monthText;
+    let inframeWiki = document.getElementById('wikiText');
+    let urlWiki = "https://de.m.wikipedia.org/wiki/" + dateD +"._" + monthText + "#Ereignisse";
+    inframeWiki.src = urlWiki;
 }
 
 //function for set number of day of week in current month

@@ -4,6 +4,9 @@
     <title>Kalenderblatt</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta
+        http-equiv="Content-Security-Policy"
+        content="connect-src https://de.wikipedia.org; " /> -->
     <link rel="stylesheet" href="style.css">
     </head>
 <body>
@@ -50,14 +53,37 @@
     <li>1572: Die Spanier erobern die Inkafestung Vilcabamba und nehmen den letzten Inka Túpac Amaru gefangen.</li>
     <li>1699: Von Johann Philipp von Isenburg-Offenbach aufgenommene hugenottische Glaubensflüchtlinge aus Frankreich gründen Neu-Isenburg.</li>
     <li>1701: Der französische Offizier Antoine Laumet errichtet das Fort Detroit. Aus dem Handelsposten entwickelt sich die Stadt Detroit.</li> -->
-    <iframe
-        id="inlineFrameWiki"
-        title="Inline Frame Wikipedia"
-        height="800px"
-        scrolling ="yes"
-        src="https://de.m.wikipedia.org/wiki/8._August#Ereignisse"
-    >
-    </iframe>
+    <iframe id="wikiText" src="https://de.m.wikipedia.org/wiki/1._Januar#Ereignisse"></iframe>
+    <!-- <div id="wikiData"></div>
+
+ 
+
+    <script>
+
+        function getWikiData() {
+            const url = "https://de.wikipedia.org/api/rest_v1/page/summary/Stack_Overflow";
+
+ 
+
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+
+                    const extract = data.extract;
+                    const wikiDataDiv = document.getElementById("wikiData");
+                    wikiDataDiv.innerHTML = extract;
+                })
+                .catch(error => {
+                    console.error("Error", error);
+                });
+        }
+
+ 
+
+
+        getWikiData();
+</script> -->
     </div>
     <script src="kalender.js"></script>
 </body>

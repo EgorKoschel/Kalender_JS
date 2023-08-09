@@ -296,7 +296,7 @@ thead {
     color: #fff;
   }
 
-  .grayday {
+.grayday {
     text-align: center;
     padding: 10px;
     color: #cececed2;
@@ -370,4 +370,10 @@ iframe {
     border-radius: 10px 10px 10px 10px;
     height: 1400px;
   }
+[data-mw-section-id="0"]{
+    display:none;
+}
 
+figure{
+    display:none;
+}

@@ -237,9 +237,12 @@ function infotextJS()
     document.getElementById('textYear').textContent = year;
     document.getElementById('historieDate').textContent = dateD;
     document.getElementById('historieMonth').textContent = monthText;
-    let inframeWiki = document.getElementById('wikiText');
-    let urlWiki = "https://de.m.wikipedia.org/wiki/" + dateD +"._" + monthText + "#Ereignisse";
-    inframeWiki.src = urlWiki;
+    // let inframeWiki = document.getElementById('wikiText');
+    // let urlWiki = "https://de.m.wikipedia.org/wiki/" + dateD +"._" + monthText + "#Ereignisse";
+    // inframeWiki.src = urlWiki;
+
+    // let section = document.getElementById("mwAQ");
+    // section.parentNode.removeChild(section);
 }
 
 //function for set number of day of week in current month
@@ -368,3 +371,5 @@ function getFeiertag(){
 
         console.log(`Weinachtag 2 in ${year} ${weihnachtstag2.toDateString()}`);
 }
+
+

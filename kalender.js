@@ -79,7 +79,7 @@ function kalendarblattJS() {
         // get the day of the week of the first day of the current month
         let firstDayOfWeek = firstDayOfMonth.getDay();
 
-         //change sunday number from 0 to 7
+        //change sunday number from 0 to 7
         if (firstDayOfWeek == 0) {
             firstDayOfWeek = 7;
         }
@@ -273,13 +273,14 @@ function weekInMonthJS()
 
 
 }
-
+//function determines if the current day is a holiday
 function feiertagYesNoJS()
 {
     let today = globalDate;
     let dateD = today.getDate();
     let monthD = today.getMonth();
     let textFeiertagYesNo;
+    //change text in info if current day is a holiday
         if (dateD == neuesYahr.getDate() && monthD == neuesYahr.getMonth() || dateD == karfreitag.getDate() && monthD == karfreitag.getMonth() || dateD == osterMontag.getDate() && monthD == osterMontag.getMonth() || dateD == tagDerArbeit.setDate() && monthD == tagDerArbeit.getMonth() || dateD == christiHimmelfahrt.getDate() && monthD == christiHimmelfahrt.getMonth() 
             || dateD == pfingstMontag.getDate() && monthD == pfingstMontag.getMonth() || dateD == fronleichnam.getDate() && monthD == fronleichnam.getMonth() || dateD == tagDerEinheit.getDate() && monthD == tagDerEinheit.getMonth() || dateD == weihnachtstag1.getDate() && monthD == weihnachtstag1.getMonth() || dateD == weihnachtstag2.getDate() && monthD == weihnachtstag2.getMonth()) {
             textFeiertagYesNo = "";
@@ -291,7 +292,7 @@ function feiertagYesNoJS()
             textFeiertagYesNo = "nicht";
             heuteIstName = ".";
         }
-
+        //create an array with dates and names of all holidays 
         let feiertagNameArray = [{date: neuesYahr.getDate(), month: neuesYahr.getMonth(), name: "Neujahr."}, 
                                 {date: karfreitag.getDate(), month: karfreitag.getMonth(), name: "Karfreitag."}, 
                                 {date: osterMontag.getDate(), month: osterMontag.getMonth(), name: "Ostermontag."},
@@ -303,51 +304,58 @@ function feiertagYesNoJS()
                                 {date: weihnachtstag1.getDate(), month: weihnachtstag1.getMonth(), name: "1. Weihnachtsfeiertag."},
                                 {date: weihnachtstag2.getDate(), month: weihnachtstag2.getMonth(), name: "2. Weihnachtsfeiertag."},                            
                             ];
-
+                //function for search in the array for an element thet equals the current date
                 function getNameByDate(date, month) {
                     let feiertagName = feiertagNameArray.find(item => item.date === date && item.month === month);
-                    return feiertagName ? feiertagName.name : '';
+                    return feiertagName ? feiertagName.name : ''; //if such an element exists, we return its name. Otherwise we return nothing
                 }
-
+                //use the array search function for the current date
                 let numberToName = getNameByDate(today.getDate(), today.getMonth());
                 console.log(numberToName);
-
+            //adding information about holiday in text
         document.getElementById('holidayYesNo').textContent = textFeiertagYesNo;
         document.getElementById('heuteIstName').textContent = heuteIstName;
         document.getElementById('feiertagName').textContent = numberToName;
 
 }
 
+//function that counts dates of religious holidays
 function getFeiertag(){
 
     const year = globalDate.getFullYear();
-
+    //function calculate the date of Easter with Gauss's Easter algorithm
     function calculateEasterDate(year) {
         const a = year % 19, b = year % 4, c = year % 7,
         d = (19 * a + 24) % 30, e = (2 * b + 4 * c + 6 * d + 5) % 7;
         const day = 22 + d + e;
         return new Date(year, 2, day + (d === 29 || (d === 28 && e === 6) ? -7 : 0));
         }
+        //calculating the date of Easter for the current year
         easterDate = calculateEasterDate(year);
         console.log(`--------------Feiertagen in ${year}---------`);
         console.log(`Easter in ${year} ${easterDate.toDateString()}`);
 
+        //calculatin the date of Karfreitag for the current yaar
         karfreitag = new Date (easterDate);
         karfreitag.setDate(karfreitag.getDate() - 2);
         console.log(`Karfreitag in ${year} ${karfreitag.toDateString()}`);
 
+        //calculation the date of Ostermontag for the current year
         osterMontag = new Date (easterDate);
         osterMontag.setDate(osterMontag.getDate() + 1);
         console.log(`Ostermontag in ${year} ${osterMontag.toDateString()}`);
 
+        //calculation the date of Christi Himmelfahrt for the current year
         christiHimmelfahrt = new Date (easterDate);
         christiHimmelfahrt.setDate(christiHimmelfahrt.getDate() + 39);
         console.log(`Christi Himmelfahrt in ${year} ${christiHimmelfahrt.toDateString()}`);
 
+        //calculation the date of Pfingsmontag for  the current year
         pfingstMontag = new Date (easterDate);
         pfingstMontag.setDate(pfingstMontag.getDate() + 50);
         console.log(`Pfingstmontag in ${year} ${pfingstMontag.toDateString()}`);
 
+        //calculation the date of Fronleichnam for the current year
         fronleichnam = new Date (pfingstMontag);
         fronleichnam.setDate(fronleichnam.getDate() + 10);
         console.log(`Fronleichnam in ${year} ${fronleichnam.toDateString()}`);

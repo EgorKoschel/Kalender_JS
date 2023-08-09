@@ -4,116 +4,47 @@
     <title>Kalenderblatt</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta
+        http-equiv="Content-Security-Policy"
+        content="connect-src https://de.wikipedia.org; " /> -->
     <link rel="stylesheet" href="style.css">
     </head>
 <body>
     <div id="page">
     <div id="kopf">
-        <h1>Kalendarblatt vom <span id= "dateD"></span>. <span id="monthD"></span> <span id ="year"></span></h1>
+        <h1 id = "headButton">Kalendarblatt vom <span id= "dateD"></span>. <span id="monthD"></span> <span id ="year"></span></h1>
     </div>
 
     <div id="kalendarblatt">   
-    <table>
-        <thead>                     
-            <tr>
-                <th colspan="7">
-
-                    <h2><span id="monthKalendarblatt"></span> <span id ="yearKalendarblatt"></span></h2>
-                    
-                </th>               
-            </tr>         
-        </thead>
-    <tbody>  
-        <tr class="wochentage">
-            
-                <th class ="tag">Montag</th>
-                <th class ="tag">Dienstag</th>
-                <th class ="tag">Mittwoch</th>
-                <th class ="tag">Donnerstag</th>
-                <th class ="tag">Freitag</th>
-                <th class = "samstag">Samstag</th>
-                <th class = "sonntag">Sonntag</th>
-            
-        </tr>
-        <tr class = "woche">
-            
-                <td class ="tag_gray">26</td>
-                <td class ="tag_gray">27</td>
-                <td class ="tag_gray">28</td>
-                <td class ="tag_gray">29</td>
-                <td class ="tag_gray">30</td>
-                <td class = "samstag">1</td>
-                <td class = "sonntag">2</td>
-            
-        </tr>
-        <tr class = "woche">
-            
-                <td class ="tag">3</td>
-                <td class ="tag">4</td>
-                <td class ="tag">5</td>
-                <td class ="tag">6</td>
-                <td class ="tag">7</td>
-                <td class = "samstag">8</td>
-                <td class = "sonntag">9</td>
-            
-        </tr>
-        <tr class = "woche">
-            
-                <td class ="tag">10</td>
-                <td class ="tag">11</td>
-                <td class ="tag">12</td>
-                <td class ="tag">13</td>
-                <td class ="tag">14</td>
-                <td class = "samstag">15</td>
-                <td class = "sonntag">16</td>
-            
-        </tr>
-        <tr class = "woche">
-            
-                <td class ="tag">17</td>
-                <td class ="tag">18</td>
-                <td class ="tag">19</td>
-                <td class ="tag">20</td>
-                <td class ="tag">21</td>
-                <td class = "samstag">22</td>
-                <td class = "sonntag">23</td>
-            
-        </tr>
-        <tr class = "woche">
-            
-                <td class ="tag_today">24</td>
-                <td class ="tag">25</td>
-                <td class ="tag">26</td>
-                <td class ="tag">27</td>
-                <td class ="tag">28</td>
-                <td class = "samstag">29</td>
-                <td class = "sonntag">30</td>
-            
-        </tr>
-        <tr class = "woche">
-            
-                <td class ="tag">31</td>
-                <td class ="tag_gray">1</td>
-                <td class ="tag_gray">2</td>
-                <td class ="tag_gray">3</td>
-                <td class ="tag_gray">4</td>
-                <td class ="tag_gray">5</td>
-                <td class ="tag_gray">6</td>
-            
-        </tr>
-    </tbody>
-    </table>
+        <div class="kalender">
+            <div class="header">
+                <button id="prev-btn"><</button> 
+                <h2 id="month-year"></h2>
+                <button id="next-btn">></button>
+            </div>
+            <div class="weekdays">
+                <div class="weekday">Mo</div>
+                <div class="weekday">Di</div>
+                <div class="weekday">Mi</div>
+                <div class="weekday">Do</div>
+                <div class="weekday">Fr</div>
+                <div class="samstag">Sa</div>
+                <div class="sonntag">So</div>
+            </div>
+            <div id="kalender-body"></div>
+            <div id="kalender-footer">Kalender</div>
+        </div>
     </div>
 
     <div id = "info">
         <div id = "text_header">
-    <h3>Information</h3>
+    <h3 class = "information_header">Information</h3>
         </div>
-    <p>Der <span id= "textDate"></span>. <span id="textMonth"></span> ist ein <span id="textWeekday"></span> und zwar der <span id="textNumberWeekday"></span> <span id="textWeekday2"></span> des Monats <span id="textMonth2"></span> im Jahr <span id ="textYear"></span>. Es handelt sich <span id="holidayYesNo"></span> um einen gesetzlichen Feiertag. </p>
+    <p>Der <span id= "textDate"></span>. <span id="textMonth"></span> ist ein <span id="textWeekday"></span> und zwar der <span id="textNumberWeekday"></span> <span id="textWeekday2"></span> des Monats <span id="textMonth2"></span> im Jahr <span id ="textYear"></span>. Es handelt sich <span id="holidayYesNo"></span> um einen gesetzlichen Feiertag<span id="heuteIstName"></span> <span id="feiertagName"></span></p>
     </div>
     <div id = "historie">
-    <h3>Historische Ereignisse am 24.07</h3>
-    <li>1177: In einem Treffen in Venedig schließen unter Vermittlung des Dogen Sebastiano Ziani Kaiser Friedrich Barbarossa und Papst Alexander III. einen Frieden unter Einschluss der Lega lombarda, des oberitalienischen Städtebundes.</li>
+    <h3 class = "historie_header">Historische Ereignisse am <span id="historieDate"></span>. <span id="historieMonth"></span></h3>
+    <!-- <li>1177: In einem Treffen in Venedig schließen unter Vermittlung des Dogen Sebastiano Ziani Kaiser Friedrich Barbarossa und Papst Alexander III. einen Frieden unter Einschluss der Lega lombarda, des oberitalienischen Städtebundes.</li>
     <li>1245: Papst Innozenz IV. setzt den portugiesischen König Sancho II. ab und ernennt dessen Bruder Alfons III. zum Regenten.</li>
     <li>1525: Der Spanier García Jofre de Loaísa bricht im Auftrag Karls V. von A Coruña aus mit sieben Schiffen zur zweiten europäischen Weltumrundung auf. Sein Chefnavigator ist Juan Sebastián Elcano. Kapitän Andrés de Urdaneta wird einer der wenigen sein, die die glücklose, neun Jahre dauernde Expedition überleben.</li>
     <li>1534: Der französische Entdecker Jacques Cartier erreicht die Mündung des Sankt-Lorenz-Stromes und nimmt auf der Halbinsel Gaspésie das Gebiet für die französische Krone in Besitz.</li>
@@ -121,7 +52,38 @@
     <li>1567: Maria Stuart dankt zugunsten ihres Sohnes Jakob VI. als Königin von Schottland ab und flieht nach England.</li>
     <li>1572: Die Spanier erobern die Inkafestung Vilcabamba und nehmen den letzten Inka Túpac Amaru gefangen.</li>
     <li>1699: Von Johann Philipp von Isenburg-Offenbach aufgenommene hugenottische Glaubensflüchtlinge aus Frankreich gründen Neu-Isenburg.</li>
-    <li>1701: Der französische Offizier Antoine Laumet errichtet das Fort Detroit. Aus dem Handelsposten entwickelt sich die Stadt Detroit.</li>
+    <li>1701: Der französische Offizier Antoine Laumet errichtet das Fort Detroit. Aus dem Handelsposten entwickelt sich die Stadt Detroit.</li> -->
+    <iframe id="wikiText" src="https://de.m.wikipedia.org/wiki/1._Januar#Ereignisse"></iframe>
+    <!-- <div id="wikiData"></div>
+
+ 
+
+    <script>
+
+        function getWikiData() {
+            const url = "https://de.wikipedia.org/api/rest_v1/page/summary/Stack_Overflow";
+
+ 
+
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+
+                    const extract = data.extract;
+                    const wikiDataDiv = document.getElementById("wikiData");
+                    wikiDataDiv.innerHTML = extract;
+                })
+                .catch(error => {
+                    console.error("Error", error);
+                });
+        }
+
+ 
+
+
+        getWikiData();
+</script> -->
     </div>
     <script src="kalender.js"></script>
 </body>

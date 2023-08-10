@@ -245,7 +245,7 @@ function infotextJS()
     // section.parentNode.removeChild(section);
 }
 
-//function for set number of day of week in current month
+//function for set number of day of week in the current month
 function weekInMonthJS()
 
 {

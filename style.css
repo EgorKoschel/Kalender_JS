@@ -55,13 +55,13 @@ body {
                 margin-left: 10px;
                 margin-right: 10px;
             }
-            table {
+            /* table {
                 border: 1px solid rgb(82, 82, 82);
                 border-collapse:collapse;
                 padding: 1px;
                 margin-left: auto;
                 margin-right: auto;
-            }
+            } */
 
             #kalendarblatt{
                 font: bold 20px Arial;
@@ -102,39 +102,39 @@ body {
 
 }
 
-table {
+/* table {
     border: 3pt solid rgb(196, 196, 196);
     border-collapse:collapse;
     padding: 3px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px; 
-}
-th {
+} */
+/* th {
     border: 1px solid rgb(82, 82, 82); 
     border-collapse:collapse;
     padding: 3px; 
     min-width: 40pt;
-}
+} */
 
-tr{
+/* tr{
     border: 1px solid rgb(82, 82, 82); 
     border-collapse:collapse;
     padding: 3px;  
-}
+} */
 
-td {
+/* td {
     border: 1px solid rgb(82, 82, 82); 
     border-collapse:collapse;
     padding: 3px; 
     height: 20pt;
-}
-.wochentage {
+} */
+/* .wochentage {
     background: rgba(0, 0, 0, 0.25);
     font-size:x-small
     }
 
 .woche {
     background: rgba(196, 196, 196, 0.178);
-}
+} */
 .samstag {
     color: rgba(30, 158, 243, 0.959) ;
     padding: 10px;
@@ -174,7 +174,7 @@ td {
 #historie {
     font: 16px Arial;
 }
-thead {
+/* thead {
     background: rgba(0, 0, 0, 0.178);
     color: rgba(255, 255, 255, 0.959) ;
     font-family: 'Bebas Neue', sans-serif;
@@ -186,9 +186,9 @@ thead {
 
 .tag_today {
     border: 3pt solid rgba(255, 145, 0, 0.89);
-}
+} */
 
-.kalender {
+/* .kalender {
     max-width: 420px;
     margin: auto;
     padding: 0px;
@@ -196,7 +196,7 @@ thead {
     border-radius: 15px 15px 15px 15px;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     
-}
+} */
 
 .header {
     display: flex;
@@ -370,6 +370,7 @@ iframe {
     border-radius: 10px 10px 10px 10px;
     height: 1400px;
   }
+
 [data-mw-section-id="0"]{
     display:none;
 }

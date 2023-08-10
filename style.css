@@ -3,6 +3,7 @@
 body {
     background-color: rgb(250, 250, 250);
     min-width: 480px;
+    animation: infoAnimation 0.5s ease-in-out;
 }
 
 #page {
@@ -99,7 +100,7 @@ body {
     grid-area: kalendarblatt;
     text-align: center;
     margin: 10pt 5pt 10pt 5pt;
-
+    
 }
 
 /* table {
@@ -168,11 +169,11 @@ body {
     cursor: pointer;
 }
 #info{
-    font: 16px Arial;
+    font-family: 'Roboto Flex', sans-serif;
 }
 
 #historie {
-    font: 16px Arial;
+    font-family: 'Roboto Flex', sans-serif;
 }
 /* thead {
     background: rgba(0, 0, 0, 0.178);
@@ -300,7 +301,7 @@ body {
     text-align: center;
     padding: 10px;
     color: #cececed2;
-    background: rgba(196, 196, 196, 0.178);
+    background: rgba(235, 235, 235, 0.384);
     border: 1pt solid #ccc;
     cursor:default;
     
@@ -353,15 +354,19 @@ body {
 .information_header {
     border-radius: 5px 5px 5px 5px;
     padding-left: 2pt;
+    font-family: 'Roboto Flex', sans-serif;
     background: rgba(155, 155, 155, 0.123);
     color: rgb(49, 49, 49) ;
+    font-size: 20px;
 }
 
 .historie_header{
     border-radius: 5px 5px 5px 5px;
     padding-left: 2pt;
+    font-family: 'Roboto Flex', sans-serif;
     background: rgba(155, 155, 155, 0.123);
     color: rgba(49, 49, 49, 0.87) ;
+    font-size: 20px;
 }
 
 iframe {
@@ -371,10 +376,96 @@ iframe {
     height: 1400px;
   }
 
-[data-mw-section-id="0"]{
+@keyframes loadingAnimation {
+    0% {
+    opacity: 0;
+    }
+    50% {
+    opacity: 1;
+    }
+    100% {
+    opacity: 0;
+    }
+}
+
+@keyframes infoAnimation {
+    0% {
+    opacity: 0;
+    }
+    100% {
+    opacity: 1;
+    }
+}
+
+#loadingMessage{
+    color: rgba(49, 49, 49, 0.87) ;
+    font-size: 20px;
+    animation: loadingAnimation 1s infinite;
+    padding-left: 2pt;
+}
+.loadingSuccess{
+    display: none;
+}
+
+#wikiData{
+    font-family: 'Roboto Flex', sans-serif;
+    animation: infoAnimation 0.3s ease-in-out;
+}
+
+.wikiDataAnimation{
+    animation: infoAnimation 0.3s ease-in-out;
+}
+
+#wikiData [data-mw-section-id="0"]{
     display:none;
 }
 
-figure{
+#wikiData a{
+    color: rgb(0, 0, 0);
+    text-decoration:none;
+    pointer-events: none;
+}
+
+#wikiData figure{
+    display:none;
+}
+
+#wikiData ul{
+    padding-left: 20px;
+}
+
+#wikiData h2{
+    border-radius: 5px 5px 5px 5px;
+    padding-left: 2pt;
+    font-family: 'Roboto Flex', sans-serif;
+    background: rgba(155, 155, 155, 0.123);
+    color: rgba(49, 49, 49, 0.87) ;
+    font-size: 20px;
+}
+
+#wikiData h3{
+    color: rgba(49, 49, 49, 0.87) ;
+    padding-left: 2pt;
+    font-size: 18px;
+
+}
+
+#wikiData #Ereignisse{
+    display:none;
+}
+
+#wikiData .gallery{
+    display:none;
+}
+
+#wikiData .thumbinner{
+    display:none;
+}
+
+#wikiData #Einzelnachweise{
+    display:none;
+}
+
+#wikiData .mw-references{
     display:none;
 }

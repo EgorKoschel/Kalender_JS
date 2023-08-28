@@ -409,11 +409,11 @@ iframe {
 
 #wikiData{
     font-family: 'Roboto Flex', sans-serif;
-    animation: infoAnimation 0.3s ease-in-out;
+    animation: infoAnimation 0.5s ease-in-out;
 }
 
 .wikiDataAnimation{
-    animation: infoAnimation 0.3s ease-in-out;
+    animation: infoAnimation 0.5s ease-in-out;
 }
 
 #wikiData [data-mw-section-id="0"]{

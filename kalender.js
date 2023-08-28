@@ -16,7 +16,7 @@ let weihnachtstag2 = new Date (globalDate.getFullYear(), 11, 26);
 window.onload = getFeiertag(), kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();
 console.log("globalDate:" + globalDate);
 
-// show today when you click on header
+// show today when click on header
 let headButton = document.getElementById("headButton");
     headButton.addEventListener("click", function () {
         globalDate = new Date();
@@ -57,6 +57,7 @@ function kalendarblattJS() {
     let monthYearElement = document.getElementById("month-year");
     let prevBtn = document.getElementById("prev-btn");
     let nextBtn = document.getElementById("next-btn");
+    
 
     //function draws calender
     function renderCalendar() {
@@ -180,7 +181,7 @@ function kalendarblattJS() {
                 function(){
                     document.getElementById('historie').classList.remove("wikiDataAnimation");
                     document.getElementById('info').classList.remove("wikiDataAnimation");
-                }, 300
+                }, 500
             );
             
         }
@@ -211,34 +212,44 @@ function kalendarblattJS() {
     prevBtn.addEventListener("click", function () {
         // when you click "Zurück" button, we decrease the month of the current date by 1 and redraw the calendar
         today.setMonth(today.getMonth() - 1);
-        renderCalendar();
-        console.log ("globalDate fater click on previous or next month ", globalDate);
+        globalDate.setFullYear(today.getFullYear());
 
+        weekInMonthJS(), getFeiertag(), renderCalendar();
+        console.log ("globalDate after click on previous month ", globalDate);
+        console.log ("today after click on previous month ", today);
+
+        if(globalDate==today){
         document.getElementById('historie').classList.add("wikiDataAnimation");
         document.getElementById('info').classList.add("wikiDataAnimation");
         setTimeout(
             function(){
                 document.getElementById('historie').classList.remove("wikiDataAnimation");
                 document.getElementById('info').classList.remove("wikiDataAnimation");
-            }, 300
+            }, 500
         );
-
+        infotextJS(),feiertagYesNoJS(),kopfJS();
+        }
     });
 
     nextBtn.addEventListener("click", function () {
         // when you click "Weiter" button, increase the month of the current date by 1 and redraw the calendar
         today.setMonth(today.getMonth() + 1);
-        renderCalendar();
-        console.log ("globalDate fater click on previous or next month ", globalDate);
+        globalDate.setFullYear(today.getFullYear());
 
+        weekInMonthJS(), getFeiertag(), renderCalendar();
+        console.log ("globalDate after click on next month ", globalDate);
+        console.log ("today after click on previous month ", today);
+        if(globalDate==today){
         document.getElementById('historie').classList.add("wikiDataAnimation");
         document.getElementById('info').classList.add("wikiDataAnimation");
         setTimeout(
             function(){
                 document.getElementById('historie').classList.remove("wikiDataAnimation");
                 document.getElementById('info').classList.remove("wikiDataAnimation");
-            }, 300
+            }, 500
         );
+        kopfJS(), feiertagYesNoJS(), infotextJS();
+        }
 
     });
 }

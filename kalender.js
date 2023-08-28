@@ -166,7 +166,7 @@ function kalendarblattJS() {
         // set text in cell
         dayCell.textContent = day;
 
-        console.log("!!!!!!today: " + globalDate.getMonth() + " " + globalDate.getFullYear() )
+        console.log("!today: " + globalDate.getMonth() + " " + globalDate.getFullYear() )
 
         // display info when you click on the current day
         dayCell.addEventListener("click", function () {
@@ -426,6 +426,11 @@ function fetchHtml(url) {
     let modifiedHtml = new XMLSerializer().serializeToString(doc);
     document.getElementById("loadingMessage").textContent="";
     wikiDataDiv.innerHTML = modifiedHtml;
+    })
+
+    .catch(function(error){
+        console.log('Loading error.', error);
+
     });
 }
 

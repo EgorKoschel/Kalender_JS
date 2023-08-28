@@ -210,6 +210,15 @@ body {
     border-radius: 15px 15px 0px 0px;
 }
 
+#month-year {
+    cursor: pointer;
+}
+
+input{
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1pt;
+}
+
 #kalender-body {
     display: grid;
     min-width: 400px;

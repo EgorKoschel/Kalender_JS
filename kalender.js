@@ -57,6 +57,48 @@ function kalendarblattJS() {
     let monthYearElement = document.getElementById("month-year");
     let prevBtn = document.getElementById("prev-btn");
     let nextBtn = document.getElementById("next-btn");
+
+
+    monthYearElement.addEventListener("click", function () {
+        let userDate = prompt("Datum:", "YYYY-MM-DD");
+        if (userDate != null) {
+            let tempDate = new Date(userDate);
+            if (tempDate.getTime()-tempDate.getTime()==0){
+            globalDate = new Date (userDate);
+            getFeiertag(), kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();}
+            else {
+                alert("Ungültiges Datum. Bitte geben Sie das Datum im Format YYYY-MM-DD ein.");
+            }
+        }});
+
+
+    // monthYearElement.addEventListener("click", function () {
+    //     let inputDate = document.createElement("input");
+    //     let userDate;
+    //     inputDate.type = "text";
+    //     inputDate.focus();
+    //     monthYearElement.replaceWith(inputDate);
+    //     inputDate.placeholder ="YYYY-MM-DD";
+    //     inputDate.addEventListener("blur", function(){
+        
+    //     userDate = inputDate.value;
+    //     console.log ("input ", userDate);
+    //     if (userDate != null) {
+    //         let tempDate = new Date(userDate);
+
+    //         if (tempDate.getTime()-tempDate.getTime()==0){
+    //         globalDate = new Date (userDate);
+    //         getFeiertag(), kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();
+    //         }
+    //         else {
+    //             alert("Ungültiges Datum. Bitte geben Sie das Datum im Format YYYY-MM-DD ein.");
+    //         }
+    //     }
+
+    //     inputDate.replaceWith(monthYearElement);
+    //     });
+    // });
+
     
 
     //function draws calender
@@ -140,6 +182,7 @@ function kalendarblattJS() {
         }
         
     }
+
 
     // function for create a day cell with a number
     function createDayCell(day) {

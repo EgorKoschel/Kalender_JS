@@ -4,9 +4,9 @@
     <title>Kalenderblatt</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <meta
+    <meta
         http-equiv="Content-Security-Policy"
-        content="connect-src https://de.wikipedia.org; " /> -->
+        content="img-src 'self' https://upload.wikimedia.org/;" />
     <link rel="stylesheet" href="style.css">
     </head>
 <body>
@@ -44,46 +44,8 @@
     </div>
     <div id = "historie">
     <h3 class = "historie_header">Historische Ereignisse am <span id="historieDate"></span>. <span id="historieMonth"></span></h3>
-    <!-- <li>1177: In einem Treffen in Venedig schließen unter Vermittlung des Dogen Sebastiano Ziani Kaiser Friedrich Barbarossa und Papst Alexander III. einen Frieden unter Einschluss der Lega lombarda, des oberitalienischen Städtebundes.</li>
-    <li>1245: Papst Innozenz IV. setzt den portugiesischen König Sancho II. ab und ernennt dessen Bruder Alfons III. zum Regenten.</li>
-    <li>1525: Der Spanier García Jofre de Loaísa bricht im Auftrag Karls V. von A Coruña aus mit sieben Schiffen zur zweiten europäischen Weltumrundung auf. Sein Chefnavigator ist Juan Sebastián Elcano. Kapitän Andrés de Urdaneta wird einer der wenigen sein, die die glücklose, neun Jahre dauernde Expedition überleben.</li>
-    <li>1534: Der französische Entdecker Jacques Cartier erreicht die Mündung des Sankt-Lorenz-Stromes und nimmt auf der Halbinsel Gaspésie das Gebiet für die französische Krone in Besitz.</li>
-    <li>1557: Im Edikt von Compiègne verschärft der französische König Heinrich II. Strafandrohungen für die Ausübung des Protestantismus.</li>
-    <li>1567: Maria Stuart dankt zugunsten ihres Sohnes Jakob VI. als Königin von Schottland ab und flieht nach England.</li>
-    <li>1572: Die Spanier erobern die Inkafestung Vilcabamba und nehmen den letzten Inka Túpac Amaru gefangen.</li>
-    <li>1699: Von Johann Philipp von Isenburg-Offenbach aufgenommene hugenottische Glaubensflüchtlinge aus Frankreich gründen Neu-Isenburg.</li>
-    <li>1701: Der französische Offizier Antoine Laumet errichtet das Fort Detroit. Aus dem Handelsposten entwickelt sich die Stadt Detroit.</li> -->
-    <iframe id="wikiText" src="https://de.m.wikipedia.org/wiki/1._Januar#Ereignisse"></iframe>
-    <!-- <div id="wikiData"></div>
-
- 
-
-    <script>
-
-        function getWikiData() {
-            const url = "https://de.wikipedia.org/api/rest_v1/page/summary/Stack_Overflow";
-
- 
-
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-
-                    const extract = data.extract;
-                    const wikiDataDiv = document.getElementById("wikiData");
-                    wikiDataDiv.innerHTML = extract;
-                })
-                .catch(error => {
-                    console.error("Error", error);
-                });
-        }
-
- 
-
-
-        getWikiData();
-</script> -->
+    <div id="loadingMessage"></div>
+    <div id="wikiData"></div>
     </div>
     <script src="kalender.js"></script>
 </body>

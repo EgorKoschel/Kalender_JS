@@ -16,11 +16,20 @@ let weihnachtstag2 = new Date (globalDate.getFullYear(), 11, 26);
 window.onload = getFeiertag(), kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();
 console.log("globalDate:" + globalDate);
 
-// show today when you click on header
+// show today when click on header
 let headButton = document.getElementById("headButton");
     headButton.addEventListener("click", function () {
         globalDate = new Date();
         kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();
+
+        document.getElementById('historie').classList.add("wikiDataAnimation");
+        document.getElementById('info').classList.add("wikiDataAnimation");
+        setTimeout(
+            function(){
+                document.getElementById('historie').classList.remove("wikiDataAnimation");
+                document.getElementById('info').classList.remove("wikiDataAnimation");
+            }, 1000
+        );
     });
 
 // function draws header
@@ -48,6 +57,7 @@ function kalendarblattJS() {
     let monthYearElement = document.getElementById("month-year");
     let prevBtn = document.getElementById("prev-btn");
     let nextBtn = document.getElementById("next-btn");
+    
 
     //function draws calender
     function renderCalendar() {
@@ -152,15 +162,28 @@ function kalendarblattJS() {
         // show today with style "today"
         if (day==globalDate.getDate() && currentMonth==globalDate.getMonth() && currentYear==globalDate.getFullYear() ){
             dayCell.classList.add("today");
+
         }
         // set text in cell
         dayCell.textContent = day;
 
-        // display a message with info when you click on the current day
+        console.log("!today: " + globalDate.getMonth() + " " + globalDate.getFullYear() )
+
+        // display info when you click on the current day
         dayCell.addEventListener("click", function () {
             globalDate = new Date(today.getFullYear(), today.getMonth(), day);
             console.log ("globalDate: " + globalDate);
             kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(); renderCalendar();
+
+            document.getElementById('historie').classList.add("wikiDataAnimation");
+            document.getElementById('info').classList.add("wikiDataAnimation");
+            setTimeout(
+                function(){
+                    document.getElementById('historie').classList.remove("wikiDataAnimation");
+                    document.getElementById('info').classList.remove("wikiDataAnimation");
+                }, 500
+            );
+            
         }
         
         );
@@ -182,17 +205,6 @@ function kalendarblattJS() {
             return dayCell;
     }
 
-    function createFeiertagCell(day) {
-        // create a day cell ID
-        const dayCell = document.createElement("div");
-        // adding style
-        dayCell.classList.add("feiertag");
-        // set text in cell
-        dayCell.textContent = day;
-        // returning the created cell element
-        return dayCell;
-    }
-
     // create calendar on page load
     renderCalendar();
 
@@ -200,15 +212,45 @@ function kalendarblattJS() {
     prevBtn.addEventListener("click", function () {
         // when you click "Zurück" button, we decrease the month of the current date by 1 and redraw the calendar
         today.setMonth(today.getMonth() - 1);
-        kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), getFeiertag(), renderCalendar();
-        console.log ("globalDate fater click on previous or next month ", globalDate);
+        globalDate.setFullYear(today.getFullYear());
+
+        weekInMonthJS(), getFeiertag(), renderCalendar();
+        console.log ("globalDate after click on previous month ", globalDate);
+        console.log ("today after click on previous month ", today);
+
+        if(globalDate==today){
+        document.getElementById('historie').classList.add("wikiDataAnimation");
+        document.getElementById('info').classList.add("wikiDataAnimation");
+        setTimeout(
+            function(){
+                document.getElementById('historie').classList.remove("wikiDataAnimation");
+                document.getElementById('info').classList.remove("wikiDataAnimation");
+            }, 500
+        );
+        infotextJS(),feiertagYesNoJS(),kopfJS();
+        }
     });
 
     nextBtn.addEventListener("click", function () {
         // when you click "Weiter" button, increase the month of the current date by 1 and redraw the calendar
         today.setMonth(today.getMonth() + 1);
-        kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), getFeiertag(), renderCalendar();
-        console.log ("globalDate fater click on previous or next month ", globalDate);
+        globalDate.setFullYear(today.getFullYear());
+
+        weekInMonthJS(), getFeiertag(), renderCalendar();
+        console.log ("globalDate after click on next month ", globalDate);
+        console.log ("today after click on previous month ", today);
+        if(globalDate==today){
+        document.getElementById('historie').classList.add("wikiDataAnimation");
+        document.getElementById('info').classList.add("wikiDataAnimation");
+        setTimeout(
+            function(){
+                document.getElementById('historie').classList.remove("wikiDataAnimation");
+                document.getElementById('info').classList.remove("wikiDataAnimation");
+            }, 500
+        );
+        kopfJS(), feiertagYesNoJS(), infotextJS();
+        }
+
     });
 }
 
@@ -228,6 +270,7 @@ function infotextJS()
     const weekNames = [ "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag","Samstag"];
     let weekText = (weekNames[weekdayD]);
     //adding text in HTML
+    
     document.getElementById('textDate').textContent = dateD;
     document.getElementById('textMonth').textContent = monthText;
     document.getElementById('textMonth2').textContent = monthText;
@@ -237,12 +280,11 @@ function infotextJS()
     document.getElementById('textYear').textContent = year;
     document.getElementById('historieDate').textContent = dateD;
     document.getElementById('historieMonth').textContent = monthText;
-    let inframeWiki = document.getElementById('wikiText');
-    let urlWiki = "https://de.m.wikipedia.org/wiki/" + dateD +"._" + monthText + "#Ereignisse";
-    inframeWiki.src = urlWiki;
+    let urlWiki = "https://de.wikipedia.org/api/rest_v1/page/html/" + dateD +"._" + monthText;
+    fetchHtml(urlWiki); 
 }
 
-//function for set number of day of week in current month
+//function for set number of day of week in the current month
 function weekInMonthJS()
 
 {
@@ -368,3 +410,38 @@ function getFeiertag(){
 
         console.log(`Weinachtag 2 in ${year} ${weihnachtstag2.toDateString()}`);
 }
+
+function fetchHtml(url) {
+    document.getElementById("loadingMessage").textContent="Loading info from wikipedia.org...";
+    fetch(url)
+
+    .then((response) => {
+        return response.text();
+    })
+
+    .then((html) => {
+    const wikiDataDiv = document.getElementById("wikiData");
+
+    let parser = new DOMParser();
+    let doc = parser.parseFromString(html, 'text/html');
+
+    let images = doc.querySelectorAll('figure');
+    images.forEach(figure => figure.parentNode.removeChild(figure));
+
+    let logo = doc.querySelectorAll('img');
+    logo.forEach(img => img.parentNode.removeChild(img));
+
+    let links = doc.querySelectorAll('link');
+    links.forEach(link => link.parentNode.removeChild(link));
+
+    let modifiedHtml = new XMLSerializer().serializeToString(doc);
+    document.getElementById("loadingMessage").textContent="";
+    wikiDataDiv.innerHTML = modifiedHtml;
+    })
+
+    .catch(function(error){
+        console.log('Loading error.', error);
+
+    });
+}
+

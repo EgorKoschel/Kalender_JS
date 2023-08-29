@@ -59,45 +59,63 @@ function kalendarblattJS() {
     let nextBtn = document.getElementById("next-btn");
 
 
-    monthYearElement.addEventListener("click", function () {
-        let userDate = prompt("Datum:", "YYYY-MM-DD");
-        if (userDate != null) {
-            let tempDate = new Date(userDate);
-            if (tempDate.getTime()-tempDate.getTime()==0){
-            globalDate = new Date (userDate);
-            getFeiertag(), kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();}
-            else {
-                alert("Ungültiges Datum. Bitte geben Sie das Datum im Format YYYY-MM-DD ein.");
-            }
-        }});
-
-
     // monthYearElement.addEventListener("click", function () {
-    //     let inputDate = document.createElement("input");
-    //     let userDate;
-    //     inputDate.type = "text";
-    //     inputDate.focus();
-    //     monthYearElement.replaceWith(inputDate);
-    //     inputDate.placeholder ="YYYY-MM-DD";
-    //     inputDate.addEventListener("blur", function(){
-        
-    //     userDate = inputDate.value;
-    //     console.log ("input ", userDate);
+    //     let userDate = prompt("Datum:", "YYYY-MM-DD");
     //     if (userDate != null) {
     //         let tempDate = new Date(userDate);
-
     //         if (tempDate.getTime()-tempDate.getTime()==0){
     //         globalDate = new Date (userDate);
-    //         getFeiertag(), kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();
-    //         }
+    //         getFeiertag(), kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();}
     //         else {
     //             alert("Ungültiges Datum. Bitte geben Sie das Datum im Format YYYY-MM-DD ein.");
     //         }
-    //     }
+    //     }});
 
-    //     inputDate.replaceWith(monthYearElement);
-    //     });
-    // });
+
+    monthYearElement.addEventListener("click", function () {
+
+        let inputDate = document.createElement("input");
+
+        inputDate.type = "text";
+        monthYearElement.replaceWith(inputDate);
+
+        inputDate.focus();
+
+        inputDate.addEventListener("blur", function(){
+            userInput();
+        });
+        
+        inputDate.placeholder ="YYYY-MM-DD";
+
+        inputDate.addEventListener("keydown", function(event){
+            if(event.key=="Enter"){
+                userInput();
+            }});
+
+
+        function userInput(){
+
+            let userDate = inputDate.value;
+    
+            console.log ("User input ", userDate);
+    
+            if (userDate != null) {
+                let tempDate = new Date(userDate);
+    
+                if (tempDate.getTime()-tempDate.getTime()==0){
+                globalDate = new Date (userDate);
+                console.log ("globalDate userInput: " + globalDate);
+                inputDate.replaceWith(monthYearElement);
+                getFeiertag(), kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();
+                }
+    
+                else {
+                    alert("Ungültiges Datum. Bitte geben Sie das Datum im Format YYYY-MM-DD ein.");
+                    inputDate.replaceWith(monthYearElement);
+                }
+            }
+            }
+    });
 
     
 

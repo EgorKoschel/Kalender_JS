@@ -454,8 +454,14 @@ function getFeiertag(){
         console.log(`Weinachtag 2 in ${year} ${weihnachtstag2.toDateString()}`);
 }
 
+
+//function for getting info from Wikipedia via Wikimedia Rest API 
 function fetchHtml(url) {
+
+    //message that displayed when information is loaded
     document.getElementById("loadingMessage").textContent="Loading info from wikipedia.org...";
+
+    //getting HTML via API as text
     fetch(url)
 
     .then((response) => {
@@ -468,20 +474,28 @@ function fetchHtml(url) {
     let parser = new DOMParser();
     let doc = parser.parseFromString(html, 'text/html');
 
+    //remove from Wiki HTML images 
     let images = doc.querySelectorAll('figure');
     images.forEach(figure => figure.parentNode.removeChild(figure));
 
     let logo = doc.querySelectorAll('img');
     logo.forEach(img => img.parentNode.removeChild(img));
 
+    //remove from Wiki HTML links
     let links = doc.querySelectorAll('link');
     links.forEach(link => link.parentNode.removeChild(link));
 
+    //transform modifed HTML to string
     let modifiedHtml = new XMLSerializer().serializeToString(doc);
+
+    //remove loading message
     document.getElementById("loadingMessage").textContent="";
+
+    //inpliment resulting html string into our page
     wikiDataDiv.innerHTML = modifiedHtml;
     })
 
+    //show an error in console if loading failed
     .catch(function(error){
         console.log('Loading error.', error);
 

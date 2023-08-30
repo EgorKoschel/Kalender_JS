@@ -57,6 +57,53 @@ function kalendarblattJS() {
     let monthYearElement = document.getElementById("month-year");
     let prevBtn = document.getElementById("prev-btn");
     let nextBtn = document.getElementById("next-btn");
+
+    monthYearElement.addEventListener("click", function () {
+
+        let inputDate = document.createElement("input");
+        let blurTimeout;
+        inputDate.type = "text";
+        monthYearElement.replaceWith(inputDate);
+
+        inputDate.focus();
+
+
+        inputDate.addEventListener("blur", function(){
+           blurTimeout = setTimeout(userInput, 10);
+        });
+
+        
+        inputDate.placeholder ="YYYY-MM-DD";
+
+        inputDate.addEventListener("keydown", function(event){
+            if(event.key=="Enter"){
+                inputDate.replaceWith(monthYearElement);
+            }});
+
+
+        function userInput(){
+            let userDate = inputDate.value;
+    
+            console.log ("User input ", userDate);
+    
+            if (userDate != null) {
+                let tempDate = new Date(userDate);
+    
+                if (tempDate.getTime()-tempDate.getTime()==0){
+                globalDate = new Date (userDate);
+                inputDate.replaceWith(monthYearElement);
+                getFeiertag(), kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();
+                globalDate = new Date (userDate);
+                }
+    
+                else {
+                    alert("Ungültiges Datum. Bitte geben Sie das Datum im Format YYYY-MM-DD ein.");
+                    inputDate.replaceWith(monthYearElement);
+                }
+            }
+            }
+    });
+
     
 
     //function draws calender
@@ -140,6 +187,7 @@ function kalendarblattJS() {
         }
         
     }
+
 
     // function for create a day cell with a number
     function createDayCell(day) {
@@ -411,8 +459,15 @@ function getFeiertag(){
         console.log(`Weinachtag 2 in ${year} ${weihnachtstag2.toDateString()}`);
 }
 
+
+//function for getting info from Wikipedia via Wikimedia Rest API 
 function fetchHtml(url) {
+    console.log("info from: ", url);
+
+    //message that displayed when information is loaded
     document.getElementById("loadingMessage").textContent="Loading info from wikipedia.org...";
+
+    //getting HTML via API as text
     fetch(url)
 
     .then((response) => {
@@ -425,20 +480,28 @@ function fetchHtml(url) {
     let parser = new DOMParser();
     let doc = parser.parseFromString(html, 'text/html');
 
+    //remove from Wiki HTML images 
     let images = doc.querySelectorAll('figure');
     images.forEach(figure => figure.parentNode.removeChild(figure));
 
     let logo = doc.querySelectorAll('img');
     logo.forEach(img => img.parentNode.removeChild(img));
 
+    //remove from Wiki HTML links
     let links = doc.querySelectorAll('link');
     links.forEach(link => link.parentNode.removeChild(link));
 
+    //transform modifed HTML to string
     let modifiedHtml = new XMLSerializer().serializeToString(doc);
+
+    //remove loading message
     document.getElementById("loadingMessage").textContent="";
+
+    //inpliment resulting html string into our page
     wikiDataDiv.innerHTML = modifiedHtml;
     })
 
+    //show an error in console if loading failed
     .catch(function(error){
         console.log('Loading error.', error);
 

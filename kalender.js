@@ -58,51 +58,30 @@ function kalendarblattJS() {
     let prevBtn = document.getElementById("prev-btn");
     let nextBtn = document.getElementById("next-btn");
 
-
-    // monthYearElement.addEventListener("click", function () {
-    //     let userDate = prompt("Datum:", "YYYY-MM-DD");
-    //     if (userDate != null) {
-    //         let tempDate = new Date(userDate);
-    //         if (tempDate.getTime()-tempDate.getTime()==0){
-    //         globalDate = new Date (userDate);
-    //         getFeiertag(), kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();}
-    //         else {
-    //             alert("Ungültiges Datum. Bitte geben Sie das Datum im Format YYYY-MM-DD ein.");
-    //         }
-    //     }});
-
-
     monthYearElement.addEventListener("click", function () {
 
         let inputDate = document.createElement("input");
         let blurTimeout;
-        let isFunctionCalled = false;
-
-
         inputDate.type = "text";
         monthYearElement.replaceWith(inputDate);
 
         inputDate.focus();
-        console.log("function called start ", isFunctionCalled);
-        if(isFunctionCalled==false){
+
+
         inputDate.addEventListener("blur", function(){
-           blurTimeout = setTimeout(userInput, 100);
+           blurTimeout = setTimeout(userInput, 10);
         });
-        }
+
         
         inputDate.placeholder ="YYYY-MM-DD";
 
         inputDate.addEventListener("keydown", function(event){
             if(event.key=="Enter"){
-                isFunctionCalled=true;
-                console.log("function called keydown ", isFunctionCalled);
-                userInput();
+                inputDate.replaceWith(monthYearElement);
             }});
 
 
         function userInput(){
-            clearTimeout(blurTimeout); 
-
             let userDate = inputDate.value;
     
             console.log ("User input ", userDate);
@@ -112,9 +91,9 @@ function kalendarblattJS() {
     
                 if (tempDate.getTime()-tempDate.getTime()==0){
                 globalDate = new Date (userDate);
-                console.log ("globalDate userInput: " + globalDate);
                 inputDate.replaceWith(monthYearElement);
                 getFeiertag(), kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();
+                globalDate = new Date (userDate);
                 }
     
                 else {
@@ -483,6 +462,7 @@ function getFeiertag(){
 
 //function for getting info from Wikipedia via Wikimedia Rest API 
 function fetchHtml(url) {
+    console.log("info from: ", url);
 
     //message that displayed when information is loaded
     document.getElementById("loadingMessage").textContent="Loading info from wikipedia.org...";

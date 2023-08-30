@@ -75,25 +75,33 @@ function kalendarblattJS() {
     monthYearElement.addEventListener("click", function () {
 
         let inputDate = document.createElement("input");
+        let blurTimeout;
+        let isFunctionCalled = false;
+
 
         inputDate.type = "text";
         monthYearElement.replaceWith(inputDate);
 
         inputDate.focus();
-
+        console.log("function called start ", isFunctionCalled);
+        if(isFunctionCalled==false){
         inputDate.addEventListener("blur", function(){
-            userInput();
+           blurTimeout = setTimeout(userInput, 100);
         });
+        }
         
         inputDate.placeholder ="YYYY-MM-DD";
 
         inputDate.addEventListener("keydown", function(event){
             if(event.key=="Enter"){
+                isFunctionCalled=true;
+                console.log("function called keydown ", isFunctionCalled);
                 userInput();
             }});
 
 
         function userInput(){
+            clearTimeout(blurTimeout); 
 
             let userDate = inputDate.value;
     

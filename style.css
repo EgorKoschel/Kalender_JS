@@ -176,6 +176,13 @@ input::placeholder{
     color: rgba(255, 255, 255, 0.418);
   }
 
+input[type="date"]::-webkit-inner-spin-button, input[type="date"]::-webkit-calendar-picker-indicator {
+  
+    display: none;
+    -webkit-appearance: none;
+  
+}
+
 #kalender-body {
     display: grid;
     min-width: 400px;

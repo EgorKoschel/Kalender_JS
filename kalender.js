@@ -8,7 +8,7 @@ let pfingstMontag;
 let fronleichnam;
 //holidays with fixed date
 let neuesYahr = new Date (globalDate.getFullYear(), 0, 1);
-let tagDerArbeit = new Date (globalDate.getFullYear(), 4, 1)
+let tagDerArbeit = new Date (globalDate.getFullYear(), 4, 1);
 let tagDerEinheit = new Date (globalDate.getFullYear(), 9, 3);
 let weihnachtstag1 = new Date (globalDate.getFullYear(), 11, 25);
 let weihnachtstag2 = new Date (globalDate.getFullYear(), 11, 26);
@@ -58,51 +58,102 @@ function kalendarblattJS() {
     let prevBtn = document.getElementById("prev-btn");
     let nextBtn = document.getElementById("next-btn");
 
-    monthYearElement.addEventListener("click", function () {
+    if(navigator.userAgent.indexOf("Firefox") !== -1){
+        monthYearElement.addEventListener("click", function () {
 
-        let inputDate = document.createElement("input");
-        let blurTimeout;
-        inputDate.type = "text";
-        monthYearElement.replaceWith(inputDate);
+            let inputDate = document.createElement("input");
+            let blurTimeout;
+            inputDate.type = "text";
+            monthYearElement.replaceWith(inputDate);
+    
+            inputDate.focus();
 
-        inputDate.focus();
-
-
-        inputDate.addEventListener("blur", function(){
-           blurTimeout = setTimeout(userInput, 10);
-        });
-
+            inputDate.maxlength="10";
+    
+    
+            inputDate.addEventListener("blur", function(){
+               blurTimeout = setTimeout(userInput, 10);
+            });
+    
+            
+            inputDate.placeholder ="YYYY-MM-DD";
+    
+            inputDate.addEventListener("keydown", function(event){
+                if(event.key=="Enter"){
+                    userInput();
+                }});
+    
+    
+            function userInput(){
+                let userDate = inputDate.value;
         
-        inputDate.placeholder ="YYYY-MM-DD";
-
-        inputDate.addEventListener("keydown", function(event){
-            if(event.key=="Enter"){
-                inputDate.replaceWith(monthYearElement);
-            }});
-
-
-        function userInput(){
-            let userDate = inputDate.value;
-    
-            console.log ("User input ", userDate);
-    
-            if (userDate != null) {
-                let tempDate = new Date(userDate);
-    
-                if (tempDate.getTime()-tempDate.getTime()==0){
-                globalDate = new Date (userDate);
-                inputDate.replaceWith(monthYearElement);
-                getFeiertag(), kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();
-                globalDate = new Date (userDate);
-                }
-    
-                else {
-                    alert("Ungültiges Datum. Bitte geben Sie das Datum im Format YYYY-MM-DD ein.");
+                console.log ("User input ", userDate);
+        
+                if (userDate != null) {
+                    let tempDate = new Date(userDate);
+        
+                    if (tempDate.getTime()-tempDate.getTime()==0){
+                    globalDate = new Date (userDate);
                     inputDate.replaceWith(monthYearElement);
+                    getFeiertag(), kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();
+                    globalDate = new Date (userDate);
+                    }
+        
+                    else {
+                        alert("Ungültiges Datum. Bitte geben Sie das Datum im Format YYYY-MM-DD ein.");
+                        inputDate.replaceWith(monthYearElement);
+                    }
                 }
-            }
-            }
-    });
+                }
+        });
+    }
+
+    else {
+        monthYearElement.addEventListener("click", function () {
+
+            let inputDate = document.createElement("input");
+            let blurTimeout;
+            inputDate.type = "date";
+            monthYearElement.replaceWith(inputDate);
+    
+            inputDate.focus();
+    
+    
+            inputDate.addEventListener("blur", function(){
+               blurTimeout = setTimeout(userInput, 10);
+            });
+    
+            inputDate.max="9999-12-31"
+    
+            inputDate.addEventListener("keydown", function(event){
+                if(event.key=="Enter"){
+                    inputDate.replaceWith(monthYearElement);
+                }});
+    
+    
+            function userInput(){
+                let userDate = inputDate.value;
+        
+                console.log ("User input ", userDate);
+        
+                if (userDate != null) {
+                    let tempDate = new Date(userDate);
+        
+                    if (tempDate.getTime()-tempDate.getTime()==0){
+                    globalDate = new Date (userDate);
+                    inputDate.replaceWith(monthYearElement);
+                    getFeiertag(), kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();
+                    globalDate = new Date (userDate);
+                    }
+        
+                    else {
+                        alert("Ungültiges Datum.");
+                        inputDate.replaceWith(monthYearElement);
+                    }
+                }
+                }
+        });
+    }
 
     
 
@@ -286,7 +337,7 @@ function kalendarblattJS() {
 
         weekInMonthJS(), getFeiertag(), renderCalendar();
         console.log ("globalDate after click on next month ", globalDate);
-        console.log ("today after click on previous month ", today);
+        console.log ("today after click on next month ", today);
         if(globalDate==today){
         document.getElementById('historie').classList.add("wikiDataAnimation");
         document.getElementById('info').classList.add("wikiDataAnimation");
@@ -371,7 +422,7 @@ function feiertagYesNoJS()
     let monthD = today.getMonth();
     let textFeiertagYesNo;
     //change text in info if current day is a holiday
-        if (dateD == neuesYahr.getDate() && monthD == neuesYahr.getMonth() || dateD == karfreitag.getDate() && monthD == karfreitag.getMonth() || dateD == osterMontag.getDate() && monthD == osterMontag.getMonth() || dateD == tagDerArbeit.setDate() && monthD == tagDerArbeit.getMonth() || dateD == christiHimmelfahrt.getDate() && monthD == christiHimmelfahrt.getMonth() 
+        if (dateD == neuesYahr.getDate() && monthD == neuesYahr.getMonth() || dateD == karfreitag.getDate() && monthD == karfreitag.getMonth() || dateD == osterMontag.getDate() && monthD == osterMontag.getMonth() || dateD == tagDerArbeit.getDate() && monthD == tagDerArbeit.getMonth() || dateD == christiHimmelfahrt.getDate() && monthD == christiHimmelfahrt.getMonth() 
             || dateD == pfingstMontag.getDate() && monthD == pfingstMontag.getMonth() || dateD == fronleichnam.getDate() && monthD == fronleichnam.getMonth() || dateD == tagDerEinheit.getDate() && monthD == tagDerEinheit.getMonth() || dateD == weihnachtstag1.getDate() && monthD == weihnachtstag1.getMonth() || dateD == weihnachtstag2.getDate() && monthD == weihnachtstag2.getMonth()) {
             textFeiertagYesNo = "";
             heuteIstName = ":";
@@ -451,6 +502,8 @@ function getFeiertag(){
         console.log(`Fronleichnam in ${year} ${fronleichnam.toDateString()}`);
 
         console.log(`Neues Yahr in ${year} ${neuesYahr.toDateString()}`);
+
+        console.log(`Tag der Arbeit ${year} ${tagDerArbeit.toDateString()}`);
 
         console.log(`Tag der Einheit in ${year} ${tagDerEinheit.toDateString()}`);
 

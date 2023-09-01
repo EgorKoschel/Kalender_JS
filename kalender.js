@@ -13,14 +13,14 @@ let tagDerEinheit = new Date (globalDate.getFullYear(), 9, 3);
 let weihnachtstag1 = new Date (globalDate.getFullYear(), 11, 25);
 let weihnachtstag2 = new Date (globalDate.getFullYear(), 11, 26);
 //run all functions on load
-window.onload = getFeiertag(), kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();
+window.onload = getFeiertag(), drawHeader(), infoText(), weekInMonth(), feiertagYesNo(), drawCalender();
 console.log("globalDate:" + globalDate);
 
 // show today when click on header
 let headButton = document.getElementById("headButton");
     headButton.addEventListener("click", function () {
         globalDate = new Date();
-        kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();
+        drawHeader(), infoText(), weekInMonth(), feiertagYesNo(), drawCalender();
 
         document.getElementById('historie').classList.add("wikiDataAnimation");
         document.getElementById('info').classList.add("wikiDataAnimation");
@@ -33,7 +33,7 @@ let headButton = document.getElementById("headButton");
     });
 
 // function draws header
-function kopfJS()
+function drawHeader()
 {
     let today = globalDate;
     let dateD = today.getDate();
@@ -50,7 +50,7 @@ function kopfJS()
 }
 
  // calendar function
-function kalendarblattJS() {
+function drawCalender() {
     let today = globalDate;
     // get ID
     let kalenderBody = document.getElementById("kalender-body");
@@ -95,7 +95,7 @@ function kalendarblattJS() {
                     if (tempDate.getTime()-tempDate.getTime()==0){
                     globalDate = new Date (userDate);
                     inputDate.replaceWith(monthYearElement);
-                    getFeiertag(), kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();
+                    getFeiertag(), drawHeader(), infoText(), weekInMonth(), feiertagYesNo(), drawCalender();
                     globalDate = new Date (userDate);
                     }
         
@@ -142,7 +142,7 @@ function kalendarblattJS() {
                     if (tempDate.getTime()-tempDate.getTime()==0){
                     globalDate = new Date (userDate);
                     inputDate.replaceWith(monthYearElement);
-                    getFeiertag(), kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(), kalendarblattJS();
+                    getFeiertag(), drawHeader(), infoText(), weekInMonth(), feiertagYesNo(), drawCalender();
                     globalDate = new Date (userDate);
                     }
         
@@ -272,7 +272,7 @@ function kalendarblattJS() {
         dayCell.addEventListener("click", function () {
             globalDate = new Date(today.getFullYear(), today.getMonth(), day);
             console.log ("globalDate: " + globalDate);
-            kopfJS(), infotextJS(), weekInMonthJS(), feiertagYesNoJS(); renderCalendar();
+            drawHeader(), infoText(), weekInMonth(), feiertagYesNo(); renderCalendar();
 
             document.getElementById('historie').classList.add("wikiDataAnimation");
             document.getElementById('info').classList.add("wikiDataAnimation");
@@ -313,7 +313,7 @@ function kalendarblattJS() {
         today.setMonth(today.getMonth() - 1);
         globalDate.setFullYear(today.getFullYear());
 
-        weekInMonthJS(), getFeiertag(), renderCalendar();
+        weekInMonth(), getFeiertag(), renderCalendar();
         console.log ("globalDate after click on previous month ", globalDate);
         console.log ("today after click on previous month ", today);
 
@@ -326,7 +326,7 @@ function kalendarblattJS() {
                 document.getElementById('info').classList.remove("wikiDataAnimation");
             }, 500
         );
-        infotextJS(),feiertagYesNoJS(),kopfJS();
+        infoText(),feiertagYesNo(),drawHeader();
         }
     });
 
@@ -335,7 +335,7 @@ function kalendarblattJS() {
         today.setMonth(today.getMonth() + 1);
         globalDate.setFullYear(today.getFullYear());
 
-        weekInMonthJS(), getFeiertag(), renderCalendar();
+        weekInMonth(), getFeiertag(), renderCalendar();
         console.log ("globalDate after click on next month ", globalDate);
         console.log ("today after click on next month ", today);
         if(globalDate==today){
@@ -347,14 +347,14 @@ function kalendarblattJS() {
                 document.getElementById('info').classList.remove("wikiDataAnimation");
             }, 500
         );
-        kopfJS(), feiertagYesNoJS(), infotextJS();
+        drawHeader(), feiertagYesNo(), infoText();
         }
 
     });
 }
 
 //get correct text to describe the day
-function infotextJS()
+function infoText()
 
 {
     let today = globalDate;
@@ -384,7 +384,7 @@ function infotextJS()
 }
 
 //function for set number of day of week in the current month
-function weekInMonthJS()
+function weekInMonth()
 
 {
     const today = globalDate;
@@ -415,7 +415,7 @@ function weekInMonthJS()
 
 }
 //function determines if the current day is a holiday
-function feiertagYesNoJS()
+function feiertagYesNo()
 {
     let today = globalDate;
     let dateD = today.getDate();

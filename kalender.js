@@ -6,28 +6,46 @@ let karfreitag;
 let christiHimmelfahrt;
 let pfingstMontag;
 let fronleichnam;
-//holidays with fixed date
-let neuesYahr = new Date (globalDate.getFullYear(), 0, 1);
-let tagDerArbeit = new Date (globalDate.getFullYear(), 4, 1);
-let tagDerEinheit = new Date (globalDate.getFullYear(), 9, 3);
-let weihnachtstag1 = new Date (globalDate.getFullYear(), 11, 25);
-let weihnachtstag2 = new Date (globalDate.getFullYear(), 11, 26);
+let neuesYahr;
+let tagDerArbeit;
+let tagDerEinheit;
+let weihnachtstag1;
+let weihnachtstag2;
+
+const monthNamesArray = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+
+
+let dateHeader = document.getElementById('dateD');
+let monthHeader = document.getElementById('monthD');
+let yearHeader = document.getElementById('year');
+let headButton = document.getElementById("headButton");
+
+let historyPageElement = document.getElementById('historie');
+let infoPageElement = document.getElementById('info');
+
+let calendarBody = document.getElementById("kalender-body");
+let monthYearElement = document.getElementById("month-year");
+
+let prevBtn = document.getElementById("prev-btn");
+let nextBtn = document.getElementById("next-btn");
 //run all functions on load
-window.onload = getFeiertag(), drawHeader(), infoText(), weekInMonth(), feiertagYesNo(), drawCalender();
-console.log("globalDate:" + globalDate);
+window.onload = getFeiertag(), drawFullPage();
+
+function drawFullPage(){
+    drawHeader(), infoText(), weekInMonth(), feiertagYesNo(), drawCalender();
+}
 
 // show today when click on header
-let headButton = document.getElementById("headButton");
     headButton.addEventListener("click", function () {
         globalDate = new Date();
-        drawHeader(), infoText(), weekInMonth(), feiertagYesNo(), drawCalender();
+        drawFullPage();
 
-        document.getElementById('historie').classList.add("wikiDataAnimation");
-        document.getElementById('info').classList.add("wikiDataAnimation");
+        historyPageElement.classList.add("wikiDataAnimation");
+        infoPageElement.classList.add("wikiDataAnimation");
         setTimeout(
             function(){
-                document.getElementById('historie').classList.remove("wikiDataAnimation");
-                document.getElementById('info').classList.remove("wikiDataAnimation");
+                historyPageElement.classList.remove("wikiDataAnimation");
+                infoPageElement.classList.remove("wikiDataAnimation");
             }, 1000
         );
     });
@@ -36,27 +54,17 @@ let headButton = document.getElementById("headButton");
 function drawHeader()
 {
     let today = globalDate;
-    let dateD = today.getDate();
-    let monthD = today.getMonth();
-    let year = today.getFullYear();
     //create array with names of month
-    const monthNames = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
-    let monthText = (monthNames[monthD]);
+    let monthText = (monthNamesArray[today.getMonth()]);
     // adding text with date ant month in HTML
-    document.getElementById('dateD').textContent = dateD;
-    document.getElementById('monthD').textContent = monthText;
-    document.getElementById('year').textContent = year;
-    console.log ("kopfDate " + globalDate);
+    dateHeader.textContent = today.getDate();
+    monthHeader.textContent = monthText;
+    yearHeader.textContent = today.getFullYear();
 }
 
  // calendar function
 function drawCalender() {
     let today = globalDate;
-    // get ID
-    let kalenderBody = document.getElementById("kalender-body");
-    let monthYearElement = document.getElementById("month-year");
-    let prevBtn = document.getElementById("prev-btn");
-    let nextBtn = document.getElementById("next-btn");
 
     if(navigator.userAgent.indexOf("Firefox") !== -1){
         monthYearElement.addEventListener("click", function () {
@@ -206,35 +214,35 @@ function drawCalender() {
         console.log("----------------------------------------");
 
         // create the name of the current month
-        const monthNames = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+        const monthNamesArray = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
         let monthD = today.getMonth();
-        let monthText = (monthNames[monthD]);
+        let monthText = (monthNamesArray[monthD]);
 
         // name of the month and year in the header of the calendar
         monthYearElement.textContent = (monthText + " " + today.getFullYear());
 
         // remove the month before drawing a new
-        kalenderBody.innerHTML = "";
+        calendarBody.innerHTML = "";
 
         // gray cells with numbers for days before the first day of the month
         for (let i = firstDayOfWeek; i > 1; i--) {
             let day = daysInPrevMonth - i + 2;
             const emptyCell = createGrayCell(day, "grayday");
-            kalenderBody.appendChild(emptyCell);
+            calendarBody.appendChild(emptyCell);
         }
 
         // cells for days of the month
         let cellWithNumber;
         for (let day = 1; day <= daysInMonth; day++) {
             cellWithNumber =createDayCell(day);
-            kalenderBody.appendChild(cellWithNumber);
+            calendarBody.appendChild(cellWithNumber);
         }
     
         // empty cells for days after the last day of the month
         for (let i = lastDayOfWeek; i < 7; i++) {
             firstDayNextMonth = firstDayNextMonth + 1;
             const emptyCell = createGrayCell(firstDayNextMonth, "grayday");
-            kalenderBody.appendChild(emptyCell);
+            calendarBody.appendChild(emptyCell);
         }
         
     }
@@ -274,12 +282,12 @@ function drawCalender() {
             console.log ("globalDate: " + globalDate);
             drawHeader(), infoText(), weekInMonth(), feiertagYesNo(); renderCalendar();
 
-            document.getElementById('historie').classList.add("wikiDataAnimation");
-            document.getElementById('info').classList.add("wikiDataAnimation");
+            historyPageElement.classList.add("wikiDataAnimation");
+            infoPageElement.classList.add("wikiDataAnimation");
             setTimeout(
                 function(){
-                    document.getElementById('historie').classList.remove("wikiDataAnimation");
-                    document.getElementById('info').classList.remove("wikiDataAnimation");
+                    historyPageElement.classList.remove("wikiDataAnimation");
+                    infoPageElement.classList.remove("wikiDataAnimation");
                 }, 500
             );
             
@@ -318,12 +326,12 @@ function drawCalender() {
         console.log ("today after click on previous month ", today);
 
         if(globalDate==today){
-        document.getElementById('historie').classList.add("wikiDataAnimation");
-        document.getElementById('info').classList.add("wikiDataAnimation");
+        historyPageElement.classList.add("wikiDataAnimation");
+        infoPageElement.classList.add("wikiDataAnimation");
         setTimeout(
             function(){
-                document.getElementById('historie').classList.remove("wikiDataAnimation");
-                document.getElementById('info').classList.remove("wikiDataAnimation");
+                historyPageElement.classList.remove("wikiDataAnimation");
+                infoPageElement.classList.remove("wikiDataAnimation");
             }, 500
         );
         infoText(),feiertagYesNo(),drawHeader();
@@ -339,12 +347,12 @@ function drawCalender() {
         console.log ("globalDate after click on next month ", globalDate);
         console.log ("today after click on next month ", today);
         if(globalDate==today){
-        document.getElementById('historie').classList.add("wikiDataAnimation");
-        document.getElementById('info').classList.add("wikiDataAnimation");
+        historyPageElement.classList.add("wikiDataAnimation");
+        infoPageElement.classList.add("wikiDataAnimation");
         setTimeout(
             function(){
-                document.getElementById('historie').classList.remove("wikiDataAnimation");
-                document.getElementById('info').classList.remove("wikiDataAnimation");
+                historyPageElement.classList.remove("wikiDataAnimation");
+                infoPageElement.classList.remove("wikiDataAnimation");
             }, 500
         );
         drawHeader(), feiertagYesNo(), infoText();
@@ -363,8 +371,8 @@ function infoText()
     let monthD = today.getMonth();
     let year = today.getFullYear();
     //set array with names of month
-    const monthNames = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
-    let monthText = (monthNames[monthD]);
+    const monthNamesArray = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+    let monthText = (monthNamesArray[monthD]);
     //set array with names days of week
     const weekNames = [ "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag","Samstag"];
     let weekText = (weekNames[weekdayD]);
@@ -500,6 +508,12 @@ function getFeiertag(){
         fronleichnam = new Date (pfingstMontag);
         fronleichnam.setDate(fronleichnam.getDate() + 10);
         console.log(`Fronleichnam in ${year} ${fronleichnam.toDateString()}`);
+
+        neuesYahr = new Date (globalDate.getFullYear(), 0, 1);
+        tagDerArbeit = new Date (globalDate.getFullYear(), 4, 1);
+        tagDerEinheit = new Date (globalDate.getFullYear(), 9, 3);
+        weihnachtstag1 = new Date (globalDate.getFullYear(), 11, 25);
+        weihnachtstag2 = new Date (globalDate.getFullYear(), 11, 26);
 
         console.log(`Neues Yahr in ${year} ${neuesYahr.toDateString()}`);
 

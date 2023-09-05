@@ -12,15 +12,15 @@
 <body>
     <div id="page">
     <div id="kopf">
-        <h1 id = "headButton">Kalendarblatt vom <span id= "dateD"></span>. <span id="monthD"></span> <span id ="year"></span></h1>
+        <h1 id = "headButton">Kalendarblatt vom <span id= "dateHeader"></span>. <span id="monthHeader"></span> <span id ="yearHeader"></span></h1>
     </div>
 
     <div id="kalendarblatt">   
         <div class="kalender">
             <div class="header">
-                <button id="prev-btn"><</button> 
-                <h2 id="month-year"></h2>
-                <button id="next-btn">></button>
+                <button id="prevButton"><</button> 
+                <h2 id="monthYearElement"></h2>
+                <button id="nextButton">></button>
             </div>
             <div class="weekdays">
                 <div class="weekday">Mo</div>
@@ -31,18 +31,18 @@
                 <div class="samstag">Sa</div>
                 <div class="sonntag">So</div>
             </div>
-            <div id="kalender-body"></div>
+            <div id="calenderBody"></div>
             <div id="kalender-footer">Kalender</div>
         </div>
     </div>
 
-    <div id = "info">
+    <div id = "infoElement">
         <div id = "text_header">
     <h3 class = "information_header">Information</h3>
         </div>
     <p>Der <span id= "textDate"></span>. <span id="textMonth"></span> ist ein <span id="textWeekday"></span> und zwar der <span id="textNumberWeekday"></span> <span id="textWeekday2"></span> des Monats <span id="textMonth2"></span> im Jahr <span id ="textYear"></span>. Es handelt sich <span id="holidayYesNo"></span> um einen gesetzlichen Feiertag<span id="heuteIstName"></span> <span id="feiertagName"></span></p>
     </div>
-    <div id = "historie">
+    <div id = "historyElement">
     <h3 class = "historie_header">Historische Ereignisse am <span id="historieDate"></span>. <span id="historieMonth"></span></h3>
     <div id="loadingMessage"></div>
     <div id="wikiData"></div>

@@ -43,14 +43,14 @@ body {
             box-shadow: none;
             } 
 
-            #info{
+            #infoElement{
                 font: 16px Arial;
                 text-align: justify;
                 margin-left: 10px;
                 margin-right: 10px;
             }
             
-            #historie {
+            #historyElement {
                 font: 16px Arial;
                 text-align: justify;
                 margin-left: 10px;
@@ -72,7 +72,7 @@ body {
 
       }
 
-#info{
+#infoElement{
         margin-top: 5pt;
         font: 16px Arial;
         text-align: justify;
@@ -80,7 +80,7 @@ body {
         margin-right: 10px;
 }
     
-#historie {
+#historyElement {
         font: 16px Arial;
         text-align: justify;
         margin-left: 10px;
@@ -147,7 +147,7 @@ body {
     border-radius: 15px 15px 0px 0px;
 }
 
-#month-year {
+#monthYearElement {
     cursor: pointer;
 }
 
@@ -183,7 +183,7 @@ input[type="date"]::-webkit-inner-spin-button, input[type="date"]::-webkit-calen
   
 }
 
-#kalender-body {
+#calenderBody {
     display: grid;
     min-width: 400px;
     grid-template-columns: repeat(7, 1fr);
@@ -249,7 +249,7 @@ input[type="date"]::-webkit-inner-spin-button, input[type="date"]::-webkit-calen
     transition: .1s;
 }
 
-#prev-btn {
+#prevButton {
     font: bold 15px Monospace;
     background-color: #f3f7fe;
     border: none;
@@ -264,7 +264,7 @@ input[type="date"]::-webkit-inner-spin-button, input[type="date"]::-webkit-calen
     margin: 20pt;
   }
   
-#prev-btn:hover {
+#prevButton:hover {
     background-color:  rgba(110, 87, 194, 0.897);
     box-shadow: 0 0 0 5px #3b83f65f;
     color: #fff;
@@ -280,7 +280,7 @@ input[type="date"]::-webkit-inner-spin-button, input[type="date"]::-webkit-calen
     
 }
   
-#next-btn {
+#nextButton {
     font: bold 15px Monospace;
     background-color: #f3f7fe;
     border: none;
@@ -295,7 +295,7 @@ input[type="date"]::-webkit-inner-spin-button, input[type="date"]::-webkit-calen
     margin: 20pt;
   }
   
-#next-btn:hover {
+#nextButton:hover {
     background-color:  rgba(110, 87, 194, 0.897);
     box-shadow: 0 0 0 5px #3b83f65f;
     color: #fff;

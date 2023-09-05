@@ -1,6 +1,6 @@
 //set global date for all functions
 let globalDate = new Date();
-//for religious holidays we get the date from funktion "getFeiertag()"
+//create variabels for all holidays, get the dates later with function "getFeiertag()".
 let easterDate;
 let karfreitag;
 let christiHimmelfahrt;
@@ -11,61 +11,58 @@ let tagDerArbeit;
 let tagDerEinheit;
 let weihnachtstag1;
 let weihnachtstag2;
-
+//create an arrays with names of month and days of the week
 const monthNamesArray = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+const weekDaysArray = [ "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag","Samstag"];
 
-
-let dateHeader = document.getElementById('dateD');
-let monthHeader = document.getElementById('monthD');
-let yearHeader = document.getElementById('year');
 let headButton = document.getElementById("headButton");
+let historyElement = document.getElementById('historyElement');
+let infoElement = document.getElementById('infoElement');
+let dateHeader = document.getElementById('dateHeader');
+let monthHeader = document.getElementById('monthHeader');
+let yearHeader = document.getElementById('yearHeader');
+let calenderBody = document.getElementById("calenderBody");
+let monthYearElement = document.getElementById("monthYearElement");
+let prevButton = document.getElementById("prevButton");
+let nextButton = document.getElementById("nextButton");
 
-let historyPageElement = document.getElementById('historie');
-let infoPageElement = document.getElementById('info');
 
-let calendarBody = document.getElementById("kalender-body");
-let monthYearElement = document.getElementById("month-year");
+headButton.addEventListener("click", onClickHeader);
 
-let prevBtn = document.getElementById("prev-btn");
-let nextBtn = document.getElementById("next-btn");
-//run all functions on load
 window.onload = getFeiertag(), drawFullPage();
+console.log("globalDate:" + globalDate);
+
 
 function drawFullPage(){
-    drawHeader(), infoText(), weekInMonth(), feiertagYesNo(), drawCalender();
+    drawHeader(), infoText(), weekInMonth(), feiertagYesNo(), drawFullCalender();
 }
 
-// show today when click on header
-    headButton.addEventListener("click", function () {
-        globalDate = new Date();
+function onClickHeader(){
+    globalDate = new Date();    
         drawFullPage();
+        historyElement.classList.add("wikiDataAnimation");
+        infoElement.classList.add("wikiDataAnimation");
 
-        historyPageElement.classList.add("wikiDataAnimation");
-        infoPageElement.classList.add("wikiDataAnimation");
         setTimeout(
             function(){
-                historyPageElement.classList.remove("wikiDataAnimation");
-                infoPageElement.classList.remove("wikiDataAnimation");
+                historyElement.classList.remove("wikiDataAnimation");
+                infoElement.classList.remove("wikiDataAnimation");
             }, 1000
         );
-    });
-
-// function draws header
-function drawHeader()
-{
-    let today = globalDate;
-    //create array with names of month
-    let monthText = (monthNamesArray[today.getMonth()]);
-    // adding text with date ant month in HTML
-    dateHeader.textContent = today.getDate();
-    monthHeader.textContent = monthText;
-    yearHeader.textContent = today.getFullYear();
 }
 
- // calendar function
-function drawCalender() {
-    let today = globalDate;
+function drawHeader()
+{
+    let dateInFunction = globalDate;
+    //create array with names of month
+    let currentMonthName = (monthNamesArray[dateInFunction.getMonth()]);
+    // adding text with date ant month in HTML
+    dateHeader.textContent = dateInFunction.getDate();
+    monthHeader.textContent = currentMonthName;
+    yearHeader.textContent = dateInFunction.getFullYear();
+}
 
+function userDateInput(){
     if(navigator.userAgent.indexOf("Firefox") !== -1){
         monthYearElement.addEventListener("click", function () {
 
@@ -103,7 +100,7 @@ function drawCalender() {
                     if (tempDate.getTime()-tempDate.getTime()==0){
                     globalDate = new Date (userDate);
                     inputDate.replaceWith(monthYearElement);
-                    getFeiertag(), drawHeader(), infoText(), weekInMonth(), feiertagYesNo(), drawCalender();
+                    getFeiertag(), drawHeader(), infoText(), weekInMonth(), feiertagYesNo(), drawFullCalender();
                     globalDate = new Date (userDate);
                     }
         
@@ -150,7 +147,7 @@ function drawCalender() {
                     if (tempDate.getTime()-tempDate.getTime()==0){
                     globalDate = new Date (userDate);
                     inputDate.replaceWith(monthYearElement);
-                    getFeiertag(), drawHeader(), infoText(), weekInMonth(), feiertagYesNo(), drawCalender();
+                    getFeiertag(), drawHeader(), infoText(), weekInMonth(), feiertagYesNo(), drawFullCalender();
                     globalDate = new Date (userDate);
                     }
         
@@ -163,196 +160,162 @@ function drawCalender() {
         });
     }
 
-    
+}
 
-    //function draws calender
-    function renderCalendar() {
+function getIsSameDate(date1, date2) {
+    return date1.getFullYear() == date2.getFullYear() && date1.getMonth() == date2.getMonth() && date1.getDate() == date2.getDate();
+}
 
-        let firstDayNextMonth = 0;
+function getIsHoliday(date) {
+    return getIsSameDate(date, neuesYahr) ||
+        getIsSameDate(date, karfreitag) ||
+        getIsSameDate(date, osterMontag) ||
+        getIsSameDate(date, tagDerArbeit) ||
+        getIsSameDate(date, christiHimmelfahrt) ||
+        getIsSameDate(date, pfingstMontag) ||
+        getIsSameDate(date, fronleichnam) ||
+        getIsSameDate(date, tagDerEinheit) ||
+        getIsSameDate(date, weihnachtstag1) ||
+        getIsSameDate(date, weihnachtstag2);
+}
 
-        // get the first day of the current month
-        const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+ //function draws full calendar
+function drawFullCalender() {
+    let dateInFunction = globalDate;
 
-        console.log("first day of the current month :" + firstDayOfMonth);
+    userDateInput();
+    drawCalenderCells();
 
-        // get the last day of the current month
-        const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    //inner function draws only calender cells and calender header
+    function drawCalenderCells() {
 
-        // get the last day of the previous month
-        const lastDayPrevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
-
-        console.log("last day of the current month :" + lastDayOfMonth);
-        console.log("last day of the previous month :" + lastDayPrevMonth);
-
-        // get the number of days in the current month
-        const daysInMonth = lastDayOfMonth.getDate();
-
-        // get the number of days in the previous month
-        let daysInPrevMonth = lastDayPrevMonth.getDate();
-
-        console.log("number of days in the current month :" + daysInMonth);
-
-        // get the day of the week of the first day of the current month
-        let firstDayOfWeek = firstDayOfMonth.getDay();
-
-        //change sunday number from 0 to 7
+        const firstDayOfMonth = new Date(dateInFunction.getFullYear(), dateInFunction.getMonth(), 1); // get the first day of the current month
+        const lastDayOfMonth = new Date(dateInFunction.getFullYear(), dateInFunction.getMonth() + 1, 0); // get the last day of the current month
+        const lastDayPrevMonth = new Date(dateInFunction.getFullYear(), dateInFunction.getMonth(), 0); // get the last day of the previous month
+        let daysInMonth = lastDayOfMonth.getDate(); // get the number of days in the current month
+        let daysInPrevMonth = lastDayPrevMonth.getDate(); // get the number of days in the previous month
+        let firstDayOfWeek = firstDayOfMonth.getDay();  // get the day of the week of the first day of the current month
+        let lastDayOfWeek = lastDayOfMonth.getDay(); // get the day of the week of the last day of the current month
+        
+        //change sunday number for first day from 0 to 7
         if (firstDayOfWeek == 0) {
             firstDayOfWeek = 7;
         }
 
-        console.log("first weekday month :" + firstDayOfWeek);
-
-        // get the day of the week of the last day of the current month
-        let lastDayOfWeek = lastDayOfMonth.getDay();
-
-        //change sunday number from 0 to 7
+        //change sunday number for last day from 0 to 7
         if (lastDayOfWeek == 0) {
             lastDayOfWeek = 7;
         }
 
-        console.log("last weekday month :" + lastDayOfWeek);
-        console.log("----------------------------------------");
+        let currentMonthName = (monthNamesArray[dateInFunction.getMonth()]); //get name of current month from array
+        monthYearElement.textContent = (currentMonthName + " " + dateInFunction.getFullYear()); //adding name of the month and year in the header of the calendar
 
-        // create the name of the current month
-        const monthNamesArray = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
-        let monthD = today.getMonth();
-        let monthText = (monthNamesArray[monthD]);
+        calenderBody.innerHTML = ""; // remove the month before drawing a new
 
-        // name of the month and year in the header of the calendar
-        monthYearElement.textContent = (monthText + " " + today.getFullYear());
-
-        // remove the month before drawing a new
-        calendarBody.innerHTML = "";
-
-        // gray cells with numbers for days before the first day of the month
+        // drawing a cells for new month
+        // first step: create gray cells with numbers of days of the previous month
         for (let i = firstDayOfWeek; i > 1; i--) {
             let day = daysInPrevMonth - i + 2;
             const emptyCell = createGrayCell(day, "grayday");
-            calendarBody.appendChild(emptyCell);
+            calenderBody.appendChild(emptyCell);
         }
-
-        // cells for days of the month
+        // second step: create cells with numbers of days of the current month
         let cellWithNumber;
         for (let day = 1; day <= daysInMonth; day++) {
             cellWithNumber =createDayCell(day);
-            calendarBody.appendChild(cellWithNumber);
-        }
-    
-        // empty cells for days after the last day of the month
+            calenderBody.appendChild(cellWithNumber);
+        }    
+        // thrid step: create gray cells with numbers of days of the next month
+        let firstDayNextMonth = 0;
         for (let i = lastDayOfWeek; i < 7; i++) {
             firstDayNextMonth = firstDayNextMonth + 1;
             const emptyCell = createGrayCell(firstDayNextMonth, "grayday");
-            calendarBody.appendChild(emptyCell);
+            calenderBody.appendChild(emptyCell);
         }
         
     }
 
 
-    // function for create a day cell with a number
+    // inner function for create a day cell with a number
     function createDayCell(day) {
         // create a day cell ID
         const dayCell = document.createElement("div");
-        let currentMonth = today.getMonth();
-        let currentYear = today.getFullYear();
-
-        // adding style
-
-            if (day == neuesYahr.getDate() && today.getMonth() == neuesYahr.getMonth() || day == karfreitag.getDate() && today.getMonth() == karfreitag.getMonth()|| day==osterMontag.getDate() && today.getMonth() == osterMontag.getMonth()|| 
-            day==tagDerArbeit.getDate() && today.getMonth() == tagDerArbeit.getMonth() || day==christiHimmelfahrt.getDate() && today.getMonth() == christiHimmelfahrt.getMonth()|| day==pfingstMontag.getDate() && today.getMonth() == pfingstMontag.getMonth()||
-            day==fronleichnam.getDate() && today.getMonth() == fronleichnam.getMonth() || day==tagDerEinheit.getDate() && today.getMonth() == tagDerEinheit.getMonth()||day==weihnachtstag1.getDate() && today.getMonth() == weihnachtstag1.getMonth()||day==weihnachtstag2.getDate() && today.getMonth() == weihnachtstag2.getMonth()){
+        // adding style for day cell
+        if (getIsHoliday(new Date(dateInFunction.getFullYear(), dateInFunction.getMonth(), day))) {
             dayCell.classList.add("feiertag");
-            }
-            else {
+        } 
+        else {
             dayCell.classList.add("day");
-            }
-
-        // show today with style "today"
-        if (day==globalDate.getDate() && currentMonth==globalDate.getMonth() && currentYear==globalDate.getFullYear() ){
-            dayCell.classList.add("today");
-
         }
-        // set text in cell
+        // show today or day selected by the user with style "today"
+        if (day==globalDate.getDate() && dateInFunction.getMonth() == globalDate.getMonth() && dateInFunction.getFullYear() == globalDate.getFullYear()){
+            dayCell.classList.add("today");
+        }
+        // adding number in cell
         dayCell.textContent = day;
-
-        console.log("!today: " + globalDate.getMonth() + " " + globalDate.getFullYear() )
-
         // display info when you click on the current day
         dayCell.addEventListener("click", function () {
-            globalDate = new Date(today.getFullYear(), today.getMonth(), day);
+            globalDate = new Date(dateInFunction.getFullYear(), dateInFunction.getMonth(), day);
             console.log ("globalDate: " + globalDate);
-            drawHeader(), infoText(), weekInMonth(), feiertagYesNo(); renderCalendar();
-
-            historyPageElement.classList.add("wikiDataAnimation");
-            infoPageElement.classList.add("wikiDataAnimation");
+            drawHeader(), infoText(), weekInMonth(), feiertagYesNo(), drawCalenderCells();
+            //adding animation from style.css
+            historyElement.classList.add("wikiDataAnimation");
+            infoElement.classList.add("wikiDataAnimation");
             setTimeout(
                 function(){
-                    historyPageElement.classList.remove("wikiDataAnimation");
-                    infoPageElement.classList.remove("wikiDataAnimation");
-                }, 500
-            );
-            
-        }
-        
-        );
-
-
+                    historyElement.classList.remove("wikiDataAnimation");
+                    infoElement.classList.remove("wikiDataAnimation");
+                }, 500);
+            });
         // returning the created cell element
         return dayCell;
     }
 
-        // create a day cell with a gray number previous and next month
+    //inner function for create gray cells with numbers of previous and next month
     function createGrayCell(day) {
             // create a day cell ID
             const dayCell = document.createElement("div");
-            // adding style
+            // adding style from style.css
             dayCell.classList.add("grayday");
-            // text in cell
+            // adding number in cell
             dayCell.textContent = day;
             // returning the created cell element
             return dayCell;
     }
 
-    // create calendar on page load
-    renderCalendar();
-
     // buttons
-    prevBtn.addEventListener("click", function () {
-        // when you click "Zurück" button, we decrease the month of the current date by 1 and redraw the calendar
-        today.setMonth(today.getMonth() - 1);
-        globalDate.setFullYear(today.getFullYear());
-
-        weekInMonth(), getFeiertag(), renderCalendar();
-        console.log ("globalDate after click on previous month ", globalDate);
-        console.log ("today after click on previous month ", today);
-
-        if(globalDate==today){
-        historyPageElement.classList.add("wikiDataAnimation");
-        infoPageElement.classList.add("wikiDataAnimation");
+    prevButton.addEventListener("click", function () {
+        // when user click "<" button, we decrease the month of the current date by 1 and redraw the calendar cells
+        dateInFunction.setMonth(dateInFunction.getMonth() - 1);
+        // globalDate.setFullYear(dateInFunction.getFullYear()); //change the year of the "globalDate" variable for thet the current day selected by user is equal to the same day in the next year and is displayed when the calender is scrolled by buttons
+        weekInMonth(), getFeiertag(), drawCalenderCells();
+        //if the date inside the function and the global date are the same, then we update all info
+        if(globalDate==dateInFunction){
+        historyElement.classList.add("wikiDataAnimation");
+        infoElement.classList.add("wikiDataAnimation");
         setTimeout(
             function(){
-                historyPageElement.classList.remove("wikiDataAnimation");
-                infoPageElement.classList.remove("wikiDataAnimation");
+                historyElement.classList.remove("wikiDataAnimation");
+                infoElement.classList.remove("wikiDataAnimation");
             }, 500
         );
         infoText(),feiertagYesNo(),drawHeader();
         }
     });
 
-    nextBtn.addEventListener("click", function () {
-        // when you click "Weiter" button, increase the month of the current date by 1 and redraw the calendar
-        today.setMonth(today.getMonth() + 1);
-        globalDate.setFullYear(today.getFullYear());
-
-        weekInMonth(), getFeiertag(), renderCalendar();
-        console.log ("globalDate after click on next month ", globalDate);
-        console.log ("today after click on next month ", today);
-        if(globalDate==today){
-        historyPageElement.classList.add("wikiDataAnimation");
-        infoPageElement.classList.add("wikiDataAnimation");
+    nextButton.addEventListener("click", function () {
+        // when user click ">" button, we increase the month of the current date by 1 and redraw the calendar cells
+        dateInFunction.setMonth(dateInFunction.getMonth() + 1);
+        // globalDate.setFullYear(dateInFunction.getFullYear()); //change the year of the "globalDate" variable for thet the current day selected by user is equal to the same day in the previous year and is displayed when the calender is scrolled by buttons
+        weekInMonth(), getFeiertag(), drawCalenderCells();
+        //if the date inside the function and the global date are the same, then we update all info
+        if(globalDate==dateInFunction){
+        historyElement.classList.add("wikiDataAnimation");
+        infoElement.classList.add("wikiDataAnimation");
         setTimeout(
             function(){
-                historyPageElement.classList.remove("wikiDataAnimation");
-                infoPageElement.classList.remove("wikiDataAnimation");
+                historyElement.classList.remove("wikiDataAnimation");
+                infoElement.classList.remove("wikiDataAnimation");
             }, 500
         );
         drawHeader(), feiertagYesNo(), infoText();
@@ -365,29 +328,29 @@ function drawCalender() {
 function infoText()
 
 {
-    let today = globalDate;
-    let dateD = today.getDate();
-    let weekdayD = today.getDay();
-    let monthD = today.getMonth();
-    let year = today.getFullYear();
+    let dateInFunction = globalDate;
+    let dateD = dateInFunction.getDate();
+    let weekdayD = dateInFunction.getDay();
+    let monthD = dateInFunction.getMonth();
+    let year = dateInFunction.getFullYear();
     //set array with names of month
     const monthNamesArray = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
-    let monthText = (monthNamesArray[monthD]);
+    let currentMonthName = (monthNamesArray[monthD]);
     //set array with names days of week
-    const weekNames = [ "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag","Samstag"];
-    let weekText = (weekNames[weekdayD]);
+    const D = [ "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag","Samstag"];
+    let weekText = (D[weekdayD]);
     //adding text in HTML
     
     document.getElementById('textDate').textContent = dateD;
-    document.getElementById('textMonth').textContent = monthText;
-    document.getElementById('textMonth2').textContent = monthText;
+    document.getElementById('textMonth').textContent = currentMonthName;
+    document.getElementById('textMonth2').textContent = currentMonthName;
     document.getElementById('textWeekday').textContent = weekText;
     document.getElementById('textWeekday2').textContent = weekText;
-    document.getElementById('textMonth').textContent = monthText;
+    document.getElementById('textMonth').textContent = currentMonthName;
     document.getElementById('textYear').textContent = year;
     document.getElementById('historieDate').textContent = dateD;
-    document.getElementById('historieMonth').textContent = monthText;
-    let urlWiki = "https://de.wikipedia.org/api/rest_v1/page/html/" + dateD +"._" + monthText;
+    document.getElementById('historieMonth').textContent = currentMonthName;
+    let urlWiki = "https://de.wikipedia.org/api/rest_v1/page/html/" + dateD +"._" + currentMonthName;
     fetchHtml(urlWiki); 
 }
 
@@ -395,10 +358,10 @@ function infoText()
 function weekInMonth()
 
 {
-    const today = globalDate;
-    const weekdayD = today.getDay();
-    const currentDay = today.getDate();
-    const firstWeekdayOfMonth = new Date(today);
+    const dateInFunction = globalDate;
+    const weekdayD = dateInFunction.getDay();
+    const currentDay = dateInFunction.getDate();
+    const firstWeekdayOfMonth = new Date(dateInFunction);
     firstWeekdayOfMonth.setDate(1);
     //search dates from beginning of month to determine first cuttent day of week in the month
     while (firstWeekdayOfMonth.getDay() !== weekdayD) {
@@ -425,13 +388,12 @@ function weekInMonth()
 //function determines if the current day is a holiday
 function feiertagYesNo()
 {
-    let today = globalDate;
-    let dateD = today.getDate();
-    let monthD = today.getMonth();
+    let dateInFunction = globalDate;
+    let dateD = dateInFunction.getDate();
+    let monthD = dateInFunction.getMonth();
     let textFeiertagYesNo;
     //change text in info if current day is a holiday
-        if (dateD == neuesYahr.getDate() && monthD == neuesYahr.getMonth() || dateD == karfreitag.getDate() && monthD == karfreitag.getMonth() || dateD == osterMontag.getDate() && monthD == osterMontag.getMonth() || dateD == tagDerArbeit.getDate() && monthD == tagDerArbeit.getMonth() || dateD == christiHimmelfahrt.getDate() && monthD == christiHimmelfahrt.getMonth() 
-            || dateD == pfingstMontag.getDate() && monthD == pfingstMontag.getMonth() || dateD == fronleichnam.getDate() && monthD == fronleichnam.getMonth() || dateD == tagDerEinheit.getDate() && monthD == tagDerEinheit.getMonth() || dateD == weihnachtstag1.getDate() && monthD == weihnachtstag1.getMonth() || dateD == weihnachtstag2.getDate() && monthD == weihnachtstag2.getMonth()) {
+        if (getIsHoliday(globalDate)) {
             textFeiertagYesNo = "";
             heuteIstName = ":";
         }
@@ -459,7 +421,7 @@ function feiertagYesNo()
                     return feiertagName ? feiertagName.name : ''; //if such an element exists, we return its name. Otherwise we return nothing
                 }
                 //use the array search function for the current date
-                let numberToName = getNameByDate(today.getDate(), today.getMonth());
+                let numberToName = getNameByDate(dateInFunction.getDate(), dateInFunction.getMonth());
                 console.log(numberToName);
             //adding information about holiday in text
         document.getElementById('holidayYesNo').textContent = textFeiertagYesNo;
@@ -510,19 +472,18 @@ function getFeiertag(){
         console.log(`Fronleichnam in ${year} ${fronleichnam.toDateString()}`);
 
         neuesYahr = new Date (globalDate.getFullYear(), 0, 1);
-        tagDerArbeit = new Date (globalDate.getFullYear(), 4, 1);
-        tagDerEinheit = new Date (globalDate.getFullYear(), 9, 3);
-        weihnachtstag1 = new Date (globalDate.getFullYear(), 11, 25);
-        weihnachtstag2 = new Date (globalDate.getFullYear(), 11, 26);
-
         console.log(`Neues Yahr in ${year} ${neuesYahr.toDateString()}`);
 
+        tagDerArbeit = new Date (globalDate.getFullYear(), 4, 1);
         console.log(`Tag der Arbeit ${year} ${tagDerArbeit.toDateString()}`);
 
+        tagDerEinheit = new Date (globalDate.getFullYear(), 9, 3);
         console.log(`Tag der Einheit in ${year} ${tagDerEinheit.toDateString()}`);
 
+        weihnachtstag1 = new Date (globalDate.getFullYear(), 11, 25);
         console.log(`Weinachtag 1 in ${year} ${weihnachtstag1.toDateString()}`);
 
+        weihnachtstag2 = new Date (globalDate.getFullYear(), 11, 26);
         console.log(`Weinachtag 2 in ${year} ${weihnachtstag2.toDateString()}`);
 }
 

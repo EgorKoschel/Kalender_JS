@@ -386,7 +386,7 @@ iframe {
 }
 
 .wikiDataAnimation{
-    animation: infoAnimation 0.5s ease-in-out;
+    animation: infoAnimation 0.8s ease-in-out;
 }
 
 #wikiData [data-mw-section-id="0"]{

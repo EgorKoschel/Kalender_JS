@@ -6,7 +6,7 @@ let karfreitag;
 let christiHimmelfahrt;
 let pfingstMontag;
 let fronleichnam;
-//holidays with fixed dates
+//holidays with fixed dates (HALLO)
 let neuesYahr = new Date(globalDate.getFullYear(), 0, 1);
 let tagDerArbeit = new Date(globalDate.getFullYear(), 4, 1)
 let tagDerEinheit = new Date(globalDate.getFullYear(), 9, 3);
